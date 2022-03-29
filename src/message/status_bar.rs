@@ -42,7 +42,7 @@ pub fn draw_status_bar(
     for status_bar in status_bar_query.iter() {
         let color = stylemaps.add(StyleMap::with_colors(Colors::new(
             Color::White,
-            Color::Blue,
+            Color::DarkBlue,
         )));
         let (Width(width), _) = terminal_size().unwrap();
         let content = status_bar

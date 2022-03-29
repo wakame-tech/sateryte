@@ -3,14 +3,17 @@ use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 use crossterm::style;
 use rand::prelude::IteratorRandom;
 
-use crate::{message::logger::LogEvent, world::dungeon::Dungeon};
+use crate::{
+    message::{logger::LogEvent, status_bar::StatusBarUpdateEvent},
+    world::dungeon::Dungeon,
+};
 
-use super::{Player, PlayerBundle};
+use super::PlayerBundle;
 
 pub fn world_spawn_player(
     mut commands: Commands,
     dungeon_query: Query<&Dungeon, Added<Dungeon>>,
-    mut message_writer: EventWriter<LogEvent>,
+    mut status_bar: EventWriter<StatusBarUpdateEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
 ) {
@@ -34,15 +37,21 @@ pub fn world_spawn_player(
             stylemap: color,
             ..Default::default()
         };
+        let player = PlayerBundle::new(sprite);
 
-        commands.spawn_bundle(PlayerBundle {
-            tag: Player,
-            sprite,
+        status_bar.send(StatusBarUpdateEvent {
+            key: "lv".to_string(),
+            value: player.level.0.to_string(),
+        });
+        status_bar.send(StatusBarUpdateEvent {
+            key: "exp".to_string(),
+            value: format!("{}/{}", player.exp.value, player.exp.next),
+        });
+        status_bar.send(StatusBarUpdateEvent {
+            key: "hp".to_string(),
+            value: format!("{}/{}", player.hp.value, player.hp.max),
         });
 
-        let text = style::style(format!("[spawn] ({}, {})", spawn_pos.x, spawn_pos.y))
-            .with(style::Color::Yellow)
-            .to_string();
-        message_writer.send(LogEvent { text });
+        commands.spawn_bundle(player);
     }
 }
