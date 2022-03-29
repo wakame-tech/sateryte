@@ -4,7 +4,7 @@ use bevy::{app::ScheduleRunnerSettings, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
 use sateryte::{
     input::{actions::Action, input_keys::input_keys},
-    player::{action_listener, startup_player},
+    player::{action_listener, spawn_player},
     world::map::startup_map,
 };
 
@@ -20,8 +20,8 @@ fn main() -> Result<(), anyhow::Error> {
         ))
         .add_plugins(DefaultCrosstermPlugins)
         .add_event::<Action>()
-        .add_startup_system(startup_player)
         .add_startup_system(startup_map)
+        .add_startup_system(spawn_player)
         .add_system(input_keys)
         .add_system(action_listener)
         .run();

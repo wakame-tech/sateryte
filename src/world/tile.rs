@@ -8,8 +8,6 @@ pub enum Tile {
     WallH,
     Region,
     Floor,
-    Gold(usize),
-    Potion,
 }
 
 impl Tile {
@@ -29,8 +27,6 @@ impl Into<Sprite> for Tile {
             Tile::WallH => Sprite::new("-"),
             Tile::Region => Sprite::new("+"),
             Tile::Floor => Sprite::new(" "),
-            Tile::Gold(_) => Sprite::new("&"),
-            Tile::Potion => Sprite::new("*"),
         }
     }
 }

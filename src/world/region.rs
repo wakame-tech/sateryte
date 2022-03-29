@@ -25,7 +25,8 @@ impl Region {
             .map(|p| Point::new(p.w as i32, p.h as i32))
     }
 
-    pub fn draw(&self, map: &mut Map) {
+    /// [Region] render to [Map]
+    pub fn build(&self, map: &mut Map) {
         for y in self.area.pos.y..self.area.pos.y + self.area.size.h as i32 {
             for x in self.area.pos.x..self.area.pos.x + self.area.size.w as i32 {
                 if self.area.is_edge(Point::new(x, y)) {

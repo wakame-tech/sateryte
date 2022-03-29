@@ -1,5 +1,7 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
+use bevy_crossterm::components::Position;
+
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Point {
     pub x: i32,
@@ -17,6 +19,15 @@ impl Into<Point> for (i32, i32) {
         Point {
             x: self.0,
             y: self.1,
+        }
+    }
+}
+
+impl Into<Point> for Position {
+    fn into(self) -> Point {
+        Point {
+            x: self.x,
+            y: self.y,
         }
     }
 }

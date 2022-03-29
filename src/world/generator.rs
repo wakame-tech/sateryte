@@ -1,23 +1,11 @@
-use bevy::prelude::*;
 use rand::{prelude::ThreadRng, Rng};
 
 use crate::geo::rect::Rect;
 
-use super::{map::Map, region::Region};
+use super::{dungeon::Dungeon, map::Map, region::Region};
 
-pub trait Generator {
-    fn generate(&mut self, map: &mut Map);
-}
-
-#[derive(Component)]
-pub struct DefaultGenerator {
-    pub areas: Vec<Region>,
-}
-
-impl DefaultGenerator {
-    pub fn new() -> Self {
-        Self { areas: vec![] }
-    }
+pub trait Generator<T> {
+    fn generate(&mut self, map: &mut Map) -> T;
 }
 
 fn devide_rec(rng: &mut ThreadRng, rect: Rect, min_area_size: usize) -> Vec<Rect> {
@@ -41,8 +29,10 @@ fn devide_rec(rng: &mut ThreadRng, rect: Rect, min_area_size: usize) -> Vec<Rect
     rects
 }
 
-impl Generator for DefaultGenerator {
-    fn generate(&mut self, map: &mut Map) {
+pub struct DungeonGenerator;
+
+impl Generator<Dungeon> for DungeonGenerator {
+    fn generate(&mut self, map: &mut Map) -> Dungeon {
         let mut rng = rand::thread_rng();
         let floor = Rect {
             pos: (0, 0).into(),
@@ -55,8 +45,11 @@ impl Generator for DefaultGenerator {
             .map(|r| Region::new(r.clone()))
             .collect::<Vec<Region>>();
         for region in regions.iter() {
-            region.draw(map);
+            region.build(map);
         }
-        self.areas = regions;
+        Dungeon {
+            tiles: map.tiles.clone(),
+            areas: regions,
+        }
     }
 }

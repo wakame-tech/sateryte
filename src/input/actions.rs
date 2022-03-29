@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+use crate::geo::point::Point;
+
 #[derive(Debug, Component)]
 pub enum Action {
     Right,
