@@ -1,25 +1,24 @@
 use bevy::prelude::*;
 
-use self::message_window::{draw_message_window, message_listener, setup_message_window};
+use self::{
+    logger::{draw_logger, logger_listener, setup_logger, LogEvent},
+    status_bar::{draw_status_bar, setup_status_bar, status_bar_listener, StatusBarUpdateEvent},
+};
 
-pub mod message_window;
-#[derive(Component)]
-pub struct MessageWindow {
-    pub messages: Vec<Message>,
-}
-
-#[derive(Component, Clone)]
-pub struct Message {
-    pub text: String,
-}
+pub mod logger;
+pub mod status_bar;
 
 pub struct MessagePlugin;
 
 impl Plugin for MessagePlugin {
     fn build(&self, app: &mut App) {
-        app.add_event::<Message>()
-            .add_startup_system(setup_message_window)
-            .add_system(message_listener)
-            .add_system(draw_message_window);
+        app.add_event::<LogEvent>()
+            .add_event::<StatusBarUpdateEvent>()
+            .add_startup_system(setup_logger)
+            .add_startup_system(setup_status_bar)
+            .add_system(logger_listener)
+            .add_system(status_bar_listener)
+            .add_system(draw_logger)
+            .add_system(draw_status_bar);
     }
 }

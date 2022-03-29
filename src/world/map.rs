@@ -5,7 +5,7 @@ use crate::geo::size::Size;
 
 use super::{
     generator::{DungeonGenerator, Generator},
-    tile::{tile_color, Tile},
+    tile::{tile_style, Tile},
 };
 
 #[derive(Component, Debug, Clone)]
@@ -33,7 +33,7 @@ pub fn generate_map(
 
     for (y, row) in map.tiles.iter().enumerate() {
         for (x, tile) in row.iter().enumerate() {
-            let stylemap = stylemaps.add(StyleMap::with_fg(tile_color(tile)));
+            let stylemap = stylemaps.add(StyleMap::new(tile_style(tile), vec![]));
             let tile = sprites.add(tile.clone().into());
             commands.spawn_bundle(SpriteBundle {
                 sprite: tile,

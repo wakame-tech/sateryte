@@ -3,14 +3,14 @@ use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 use crossterm::style;
 use rand::prelude::IteratorRandom;
 
-use crate::{message::Message, world::dungeon::Dungeon};
+use crate::{message::logger::LogEvent, world::dungeon::Dungeon};
 
 use super::{Player, PlayerBundle};
 
 pub fn world_spawn_player(
     mut commands: Commands,
     dungeon_query: Query<&Dungeon, Added<Dungeon>>,
-    mut message_writer: EventWriter<Message>,
+    mut message_writer: EventWriter<LogEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
 ) {
@@ -43,6 +43,6 @@ pub fn world_spawn_player(
         let text = style::style(format!("[spawn] ({}, {})", spawn_pos.x, spawn_pos.y))
             .with(style::Color::Yellow)
             .to_string();
-        message_writer.send(Message { text });
+        message_writer.send(LogEvent { text });
     }
 }

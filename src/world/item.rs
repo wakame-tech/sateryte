@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
+use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, Style, StyleMap};
 
 use super::dungeon::Dungeon;
 
@@ -40,5 +40,11 @@ impl Into<Sprite> for MapItem {
             // Tile::Gold(_) => Sprite::new("&"),
             MapItem::Potion => Sprite::new("*"),
         }
+    }
+}
+
+pub fn item_style(item: &MapItem) -> Style {
+    match item {
+        MapItem::Potion => Style::with_fg(Color::Yellow),
     }
 }

@@ -1,8 +1,6 @@
 use bevy::prelude::*;
 
-use crate::player::{
-    action_listener::world_action_listener, actions::Action, spawn::world_spawn_player,
-};
+use crate::player::{action_listener::world_action_listener, spawn::world_spawn_player};
 
 use self::map::generate_map;
 
