@@ -24,10 +24,7 @@ pub fn world_action_listener(
                         if dungeon.is_movable(new_pos) {
                             player.x = new_pos.x;
                             player.y = new_pos.y;
-                            let text =
-                                style::style(format!("[move] ({}, {})", new_pos.x, new_pos.y))
-                                    .with(style::Color::Yellow)
-                                    .to_string();
+                            let text = format!("[move] ({}, {})", new_pos.x, new_pos.y);
                             message_writer.send(Message { text });
                         }
                     }
@@ -40,10 +37,7 @@ pub fn world_action_listener(
                         if dungeon.is_movable(new_pos) {
                             player.x = new_pos.x;
                             player.y = new_pos.y;
-                            let text =
-                                style::style(format!("[move] ({}, {})", new_pos.x, new_pos.y))
-                                    .with(style::Color::Yellow)
-                                    .to_string();
+                            let text = format!("[move] ({}, {})", new_pos.x, new_pos.y);
                             message_writer.send(Message { text });
                         }
                     }

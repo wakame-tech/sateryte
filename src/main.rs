@@ -2,7 +2,10 @@ use core::time;
 
 use bevy::{app::ScheduleRunnerSettings, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
-use sateryte::{input::input_keys::input_keys, message::MessagePlugin, world::WorldPlugin};
+use sateryte::{
+    input::input_keys::input_keys, message::MessagePlugin, player::actions::Action,
+    world::WorldPlugin,
+};
 
 fn main() -> Result<(), anyhow::Error> {
     let mut settings = CrosstermWindowSettings::default();
@@ -14,9 +17,10 @@ fn main() -> Result<(), anyhow::Error> {
         .insert_resource(ScheduleRunnerSettings::run_loop(
             time::Duration::from_millis(16),
         ))
+        .add_event::<Action>()
         .add_plugins(DefaultCrosstermPlugins)
-        .add_plugin(MessagePlugin)
         .add_plugin(WorldPlugin)
+        .add_plugin(MessagePlugin)
         .add_system(input_keys)
         .run();
 

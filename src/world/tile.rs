@@ -1,4 +1,4 @@
-use bevy_crossterm::components::Sprite;
+use bevy_crossterm::components::{Color, Sprite};
 
 #[derive(Debug, Clone)]
 
@@ -28,5 +28,22 @@ impl Into<Sprite> for Tile {
             Tile::Region => Sprite::new("+"),
             Tile::Floor => Sprite::new(" "),
         }
+    }
+}
+
+pub fn tile_color(tile: &Tile) -> Color {
+    match tile {
+        Tile::Region => Color::Rgb {
+            r: 128u8,
+            g: 0u8,
+            b: 0u8,
+        },
+        Tile::Wall => Color::Rgb {
+            r: 128u8,
+            g: 128u8,
+            b: 128u8,
+        },
+        Tile::WallH | Tile::WallV => Color::Green,
+        _ => Color::Black,
     }
 }

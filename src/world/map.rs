@@ -5,7 +5,7 @@ use crate::geo::size::Size;
 
 use super::{
     generator::{DungeonGenerator, Generator},
-    tile::Tile,
+    tile::{tile_color, Tile},
 };
 
 #[derive(Component, Debug, Clone)]
@@ -21,7 +21,7 @@ impl Map {
     }
 }
 
-pub fn startup_map(
+pub fn generate_map(
     mut commands: Commands,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
@@ -31,14 +31,14 @@ pub fn startup_map(
     let dungeon = generator.generate(&mut map);
     commands.spawn().insert(dungeon);
 
-    let color = stylemaps.add(StyleMap::default());
     for (y, row) in map.tiles.iter().enumerate() {
         for (x, tile) in row.iter().enumerate() {
+            let stylemap = stylemaps.add(StyleMap::with_fg(tile_color(tile)));
             let tile = sprites.add(tile.clone().into());
             commands.spawn_bundle(SpriteBundle {
                 sprite: tile,
                 position: Position::with_xy(x as i32, y as i32),
-                stylemap: color.clone(),
+                stylemap,
                 ..Default::default()
             });
         }
