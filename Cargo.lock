@@ -2716,6 +2716,7 @@ dependencies = [
  "anyhow",
  "bevy",
  "bevy_crossterm",
+ "crossterm",
  "csv",
  "once_cell",
  "rand",
