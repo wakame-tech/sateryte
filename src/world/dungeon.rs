@@ -26,7 +26,7 @@ impl Dungeon {
         self.tiles[pos.y as usize][pos.x as usize].is_through()
     }
 
-    pub fn get_next_wall_pos(&self, pos: Point, dir: Direction) -> Point {
+    pub fn get_next_wall_pos(&self, pos: Point, dir: &Direction) -> Point {
         let mut cur = pos;
         let diff = dir.clone().into();
         while self.is_movable(cur + diff) {

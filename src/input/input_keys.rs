@@ -1,26 +1,28 @@
-use super::actions::Action;
+use crate::{geo::direction::Direction, player::actions::Action};
 use bevy::{app::Events, prelude::*};
 use bevy_crossterm::prelude::{KeyCode, KeyEvent};
 
+macro_rules! key {
+    ( $char: literal ) => {
+        &KeyEvent {
+            code: KeyCode::Char($char),
+            modifiers: _,
+        }
+    };
+}
+
+/// convert input key to action
 pub fn input_keys(keys: Res<Events<KeyEvent>>, mut sender: EventWriter<Action>) {
     for event in keys.get_reader().iter(&*keys) {
         let action = match event {
-            &KeyEvent {
-                code: KeyCode::Char('l'),
-                modifiers: _,
-            } => Some(Action::Right),
-            &KeyEvent {
-                code: KeyCode::Char('h'),
-                modifiers: _,
-            } => Some(Action::Left),
-            &KeyEvent {
-                code: KeyCode::Char('k'),
-                modifiers: _,
-            } => Some(Action::Up),
-            &KeyEvent {
-                code: KeyCode::Char('j'),
-                modifiers: _,
-            } => Some(Action::Down),
+            key!('l') => Some(Action::Walk(Direction::Right)),
+            key!('L') => Some(Action::WalkToWall(Direction::Right)),
+            key!('h') => Some(Action::Walk(Direction::Left)),
+            key!('H') => Some(Action::WalkToWall(Direction::Left)),
+            key!('k') => Some(Action::Walk(Direction::Up)),
+            key!('K') => Some(Action::WalkToWall(Direction::Up)),
+            key!('j') => Some(Action::Walk(Direction::Down)),
+            key!('J') => Some(Action::WalkToWall(Direction::Down)),
             _ => None,
         };
         if let Some(action) = action {

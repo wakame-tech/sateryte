@@ -2,12 +2,7 @@ use core::time;
 
 use bevy::{app::ScheduleRunnerSettings, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
-use sateryte::{
-    input::{actions::Action, input_keys::input_keys},
-    message::{message_listener, Message, MessagePlugin},
-    player::{action_listener, spawn_player},
-    world::map::startup_map,
-};
+use sateryte::{input::input_keys::input_keys, message::MessagePlugin, world::WorldPlugin};
 
 fn main() -> Result<(), anyhow::Error> {
     let mut settings = CrosstermWindowSettings::default();
@@ -21,11 +16,8 @@ fn main() -> Result<(), anyhow::Error> {
         ))
         .add_plugins(DefaultCrosstermPlugins)
         .add_plugin(MessagePlugin)
-        .add_event::<Action>()
-        .add_startup_system(startup_map.label("map"))
-        .add_system(spawn_player.after("map"))
+        .add_plugin(WorldPlugin)
         .add_system(input_keys)
-        .add_system(action_listener)
         .run();
 
     Ok(())
