@@ -1,5 +1,7 @@
-use bevy::prelude::Component;
+use bevy::prelude::*;
 use rand::{prelude::ThreadRng, Rng};
+
+use crate::geo::rect::Rect;
 
 use super::{map::Map, region::Region};
 

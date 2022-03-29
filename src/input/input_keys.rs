@@ -1,8 +1,5 @@
 use super::actions::Action;
-use bevy::{
-    app::Events,
-    prelude::{EventWriter, Res},
-};
+use bevy::{app::Events, prelude::*};
 use bevy_crossterm::prelude::{KeyCode, KeyEvent};
 
 pub fn input_keys(keys: Res<Events<KeyEvent>>, mut sender: EventWriter<Action>) {

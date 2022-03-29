@@ -1,6 +1,6 @@
 use core::time;
 
-use bevy::{app::ScheduleRunnerSettings, core::DefaultTaskPoolOptions, prelude::App};
+use bevy::{app::ScheduleRunnerSettings, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
 use sateryte::{
     input::{actions::Action, input_keys::input_keys},

@@ -1,4 +1,4 @@
-use bevy::prelude::{Assets, Commands, Component, EventReader, Query, ResMut};
+use bevy::prelude::*;
 use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 
 use super::input::actions::Action;

@@ -1,4 +1,4 @@
-use bevy::prelude::{Assets, Commands, Component, Query, Res, ResMut};
+use bevy::prelude::*;
 use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 
 use crate::geo::{direction::Direction, point::Point, size::Size};
