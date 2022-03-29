@@ -2,9 +2,9 @@ use std::fmt::Display;
 
 use rand::{prelude::ThreadRng, Rng};
 
-use super::{point::Point, size::Size};
+use super::{direction::Direction, point::Point, size::Size};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Rect {
     pub pos: Point,
     pub size: Size,
@@ -12,11 +12,7 @@ pub struct Rect {
 
 impl Display for Rect {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(
-            f,
-            "pos: ({}, {}), size: ({} x {})",
-            self.pos.x, self.pos.y, self.size.w, self.size.h
-        )
+        write!(f, "pos: {}, size: {}", self.pos, self.size)
     }
 }
 
@@ -33,20 +29,47 @@ impl Rect {
         pos.y == self.pos.y || pos.y == self.pos.y + self.size.h as i32 - 1
     }
 
-    pub fn shrink(&self, amount: Size) -> Rect {
-        assert!(amount.w * 2 < self.size.w && amount.h * 2 < self.size.h);
-        Rect {
-            pos: self.pos + amount.into(),
-            size: self.size - (amount + amount).into(),
+    pub fn shrink(&self, x: i32, y: i32) -> Option<Rect> {
+        let amount = Point::new(x, y);
+        if amount.x * 2 < self.size.w as i32 && amount.y * 2 < self.size.h as i32 {
+            let pad = amount.times(2);
+            Some(Rect {
+                pos: self.pos + amount,
+                size: self.size - Size::new(pad.x as usize, pad.y as usize),
+            })
+        } else {
+            None
         }
+    }
+
+    pub fn contain(&self, pos: &Point) -> bool {
+        pos.x >= self.pos.x
+            && pos.x < self.pos.x + self.size.w as i32
+            && pos.y >= self.pos.y
+            && pos.y < self.pos.y + self.size.h as i32
+    }
+
+    /// get faced direction
+    pub fn intercect(&self, other: &Rect) -> Option<Direction> {
+        let res = if self.pos.x == other.pos.x + other.size.w as i32 {
+            Some(Direction::Left)
+        } else if self.pos.x + self.size.w as i32 == other.pos.x {
+            Some(Direction::Right)
+        } else if self.pos.y == other.pos.y + other.size.h as i32 {
+            Some(Direction::Up)
+        } else if self.pos.y + self.size.h as i32 == other.pos.y {
+            Some(Direction::Down)
+        } else {
+            None
+        };
+        println!("{} vs {} => {:?}", self, other, res);
+        res
     }
 
     pub fn devide_horizontal(&self, n: usize) -> Option<Vec<Rect>> {
         if self.size.w < n || self.size.w - n < 5 {
             return None;
         }
-        println!("\n{}", self);
-        dbg!(n);
         let left = Rect {
             pos: self.pos,
             size: (n, self.size.h).into(),
@@ -55,7 +78,6 @@ impl Rect {
             pos: self.pos + (n as i32, 0).into(),
             size: self.size - (n, 0).into(),
         };
-        println!("{}\n{}", &left, &right);
         Some(vec![left, right])
     }
 
@@ -63,8 +85,6 @@ impl Rect {
         if self.size.h < n || self.size.h - n < 5 {
             return None;
         }
-        println!("{}", self);
-        dbg!(n);
         let top = Rect {
             pos: self.pos,
             size: (self.size.w, n).into(),
@@ -73,14 +93,40 @@ impl Rect {
             pos: self.pos + (0, n as i32).into(),
             size: self.size - (0, n).into(),
         };
-        println!("{}\n{}", &top, &bottom);
         Some(vec![top, bottom])
     }
 
     pub fn sample(&self, rng: &mut ThreadRng) -> Size {
-        dbg!(&self.size);
         let x = self.pos.x as usize + rng.gen_range(0..self.size.w);
         let y = self.pos.y as usize + rng.gen_range(0..self.size.h);
         (x, y).into()
+    }
+
+    /// choose a pos on the edge of the rect but not on the corners
+    pub fn sample_edge(&self, dir: &Direction, rng: &mut ThreadRng) -> Option<Point> {
+        let sx = self.pos.x + 1;
+        let sy = self.pos.y + 1;
+        let ex = self.pos.x + self.size.w as i32 - 1;
+        let ey = self.pos.y + self.size.h as i32 - 1;
+        let rx = rng.gen_range(sx..ex);
+        let ry = rng.gen_range(sy..ey);
+        match dir {
+            Direction::Up => Some(Point::new(rx, self.pos.y)),
+            Direction::Down => Some(Point::new(rx, self.pos.y + self.size.h as i32 - 1)),
+            Direction::Left => Some(Point::new(self.pos.x, ry)),
+            Direction::Right => Some(Point::new(self.pos.x + self.size.w as i32 - 1, ry)),
+            _ => None,
+        }
+    }
+
+    /// returns edges position
+    pub fn wall(&self, dir: &Direction) -> i32 {
+        match dir {
+            Direction::Left => self.pos.x,
+            Direction::Right => self.pos.x + self.size.w as i32 - 1,
+            Direction::Up => self.pos.y,
+            Direction::Down => self.pos.y + self.size.h as i32 - 1,
+            _ => panic!("invalid direction"),
+        }
     }
 }

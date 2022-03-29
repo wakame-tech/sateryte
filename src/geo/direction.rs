@@ -1,6 +1,6 @@
 use super::point::Point;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Direction {
     Up,
     Down,
@@ -10,6 +10,21 @@ pub enum Direction {
     UpRight,
     DownLeft,
     DownRight,
+}
+
+impl Direction {
+    pub fn invert(&self) -> Direction {
+        match self {
+            Direction::Up => Direction::Down,
+            Direction::Down => Direction::Up,
+            Direction::Left => Direction::Right,
+            Direction::Right => Direction::Left,
+            Direction::UpLeft => Direction::DownRight,
+            Direction::UpRight => Direction::DownLeft,
+            Direction::DownLeft => Direction::UpRight,
+            Direction::DownRight => Direction::UpLeft,
+        }
+    }
 }
 
 impl Into<Point> for Direction {

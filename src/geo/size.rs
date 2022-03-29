@@ -1,11 +1,20 @@
-use std::ops::{Add, AddAssign, Sub, SubAssign};
+use std::{
+    fmt::Display,
+    ops::{Add, AddAssign, Sub, SubAssign},
+};
 
 use super::point::Point;
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Size {
     pub w: usize,
     pub h: usize,
+}
+
+impl Display for Size {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{} x {}", self.w, self.h)
+    }
 }
 
 impl Size {

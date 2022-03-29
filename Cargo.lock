@@ -805,7 +805,7 @@ dependencies = [
  "axgeom",
  "compt",
  "is_sorted",
- "itertools",
+ "itertools 0.9.0",
  "pdqselect",
  "rayon-core",
  "twounordered",
@@ -1790,6 +1790,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.10.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9a9d19fa1e79b6215ff29b9d6880b706147f16e9b1dbb1e4e5947b5b02bc5e3"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2718,6 +2727,7 @@ dependencies = [
  "bevy_crossterm",
  "crossterm",
  "csv",
+ "itertools 0.10.3",
  "once_cell",
  "rand",
  "rhai",

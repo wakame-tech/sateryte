@@ -1,12 +1,13 @@
 use bevy_crossterm::components::{Color, Sprite, Style};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 
 pub enum Tile {
     Wall,
     WallV,
     WallH,
-    Region,
+    Debug(String),
+    Passage,
     Floor,
 }
 
@@ -25,7 +26,8 @@ impl Into<Sprite> for Tile {
             Tile::Wall => Sprite::new("."),
             Tile::WallV => Sprite::new("|"),
             Tile::WallH => Sprite::new("-"),
-            Tile::Region => Sprite::new("+"),
+            Tile::Debug(s) => Sprite::new(s),
+            Tile::Passage => Sprite::new("#"),
             Tile::Floor => Sprite::new(" "),
         }
     }
@@ -33,11 +35,7 @@ impl Into<Sprite> for Tile {
 
 pub fn tile_style(tile: &Tile) -> Style {
     match tile {
-        Tile::Region => Style::with_fg(Color::Rgb {
-            r: 128u8,
-            g: 0u8,
-            b: 0u8,
-        }),
+        Tile::Debug(_) => Style::with_fg(Color::DarkYellow),
         Tile::Wall => Style::with_fg(Color::Rgb {
             r: 128u8,
             g: 128u8,

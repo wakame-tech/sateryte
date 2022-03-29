@@ -15,3 +15,4 @@ bevy = "0.6.1"
 crossterm = "*"
 bevy_crossterm = { git = "https://github.com/wakame-tech/bevy_crossterm", branch = "fix/migrate-bevy-0.6" }
 terminal_size = "0.1.17"
+itertools = "0.10.3"
