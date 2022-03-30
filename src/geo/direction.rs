@@ -25,6 +25,15 @@ impl Direction {
             Direction::DownRight => Direction::UpLeft,
         }
     }
+
+    pub fn around_4() -> Vec<Direction> {
+        vec![
+            Direction::Up,
+            Direction::Down,
+            Direction::Left,
+            Direction::Right,
+        ]
+    }
 }
 
 impl Into<Point> for Direction {

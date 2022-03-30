@@ -11,26 +11,42 @@ pub struct Dungeon {
 }
 
 impl Dungeon {
-    pub fn is_throughable(&self, pos: Point) -> bool {
-        self.tiles[pos.y as usize][pos.x as usize].is_through()
-    }
-
-    pub fn is_movable(&self, pos: Point) -> bool {
+    pub fn at(&self, pos: &Point) -> Option<&Tile> {
         if pos.x < 0
             || pos.y < 0
             || pos.x >= self.tiles[0].len() as i32
             || pos.y >= self.tiles.len() as i32
         {
-            return false;
+            return None;
         }
-        self.tiles[pos.y as usize][pos.x as usize].is_through()
+        Some(&self.tiles[pos.y as usize][pos.x as usize])
     }
 
+    pub fn is_movable(&self, pos: Point) -> bool {
+        self.at(&pos).map(|tile| tile.is_through()).unwrap_or(false)
+    }
+
+    pub fn passage_exist_around(&self, pos: Point) -> bool {
+        pos.around4()
+            .iter()
+            .any(|p| self.at(p) == Some(&Tile::Passage))
+    }
+
+    /// Returns the next position of the wall in the given direction.
+    /// if passage is found around player pos, returns here.
     pub fn get_next_wall_pos(&self, pos: Point, dir: &Direction) -> Point {
+        let on_passage = self.at(&pos) == Some(&Tile::Passage);
         let mut cur = pos;
-        let diff = dir.clone().into();
-        while self.is_movable(cur + diff) {
+        while self.is_movable(cur + dir.clone().into()) {
             cur += dir.clone().into();
+            // stops on entrance of room
+            if on_passage && self.at(&cur) != Some(&Tile::Passage) {
+                break;
+            }
+            // stops around passage
+            if !on_passage && self.passage_exist_around(cur) {
+                break;
+            }
         }
         cur
     }

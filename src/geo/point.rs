@@ -6,6 +6,8 @@ use std::{
 
 use bevy_crossterm::components::Position;
 
+use super::direction::Direction;
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Point {
     pub x: i32,
@@ -46,6 +48,28 @@ impl Point {
         let e = max(self.y, y);
         for y in s..=e {
             points.push(Point::new(self.x, y));
+        }
+        points
+    }
+
+    pub fn around(&self, distance: i32) -> Vec<Point> {
+        let mut points = Vec::new();
+        for dy in -distance..=distance {
+            for dx in -distance..=distance {
+                if dx == 0 && dy == 0 {
+                    continue;
+                }
+                let new_pos = *self + Point::new(dx, dy);
+                points.push(new_pos);
+            }
+        }
+        points
+    }
+
+    pub fn around4(&self) -> Vec<Point> {
+        let mut points = Vec::new();
+        for d in Direction::around_4() {
+            points.push(*self + d.into());
         }
         points
     }
