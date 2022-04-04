@@ -4,11 +4,12 @@ use std::{
     ops::{Add, AddAssign, Neg, Sub, SubAssign},
 };
 
+use bevy::prelude::Component;
 use bevy_crossterm::components::Position;
 
 use super::direction::Direction;
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Component, Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Point {
     pub x: i32,
     pub y: i32,

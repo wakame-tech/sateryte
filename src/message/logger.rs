@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_crossterm::components::{Color, Colors, Position, Sprite, SpriteBundle, StyleMap};
-use terminal_size::{terminal_size, Width};
+use terminal_size::{terminal_size, Height, Width};
 
 #[derive(Component)]
 pub struct Logger {
@@ -37,19 +37,28 @@ pub fn draw_logger(
             Color::Black,
             Color::White,
         )));
-        let (Width(width), _) = terminal_size().unwrap();
+        let (Width(w), Height(h)) = terminal_size().unwrap();
+        let width = w - 80;
         let content = logger
             .messages
             .iter()
+            .enumerate()
             .rev()
-            .take(3)
-            .map(|mes| format!("{:width$}", mes.text.as_str(), width = width as usize))
+            .take(h.into())
+            .map(|(i, mes)| {
+                format!(
+                    "[{}] {:width$}",
+                    i,
+                    mes.text.as_str(),
+                    width = width as usize
+                )
+            })
             .collect::<Vec<String>>()
             .join("\n");
         let sprite = sprites.add(Sprite::new(content));
         let sprite = SpriteBundle {
             sprite,
-            position: Position::with_xy(0, 25),
+            position: Position::with_xy(80, 0),
             stylemap: color,
             ..Default::default()
         };

@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use bevy_crossterm::components::Position;
 
 use crate::{
+    geo::direction::Direction,
     message::status_bar::StatusBarUpdateEvent,
     player::components::{
         entity_bundle::IsPlayer,
@@ -16,7 +17,7 @@ pub fn render_player_position_status(
 ) {
     for player in query.iter() {
         status_bar.send(StatusBarUpdateEvent {
-            key: "@".to_string(),
+            key: "at".to_string(),
             value: format!("({}, {})", player.x, player.y),
         });
     }
@@ -44,6 +45,18 @@ pub fn render_player_exp_status(
         status_bar.send(StatusBarUpdateEvent {
             key: "exp".to_string(),
             value: format!("{}/{}", exp.value, exp.next),
+        });
+    }
+}
+
+pub fn render_player_dir_status(
+    mut status_bar: EventWriter<StatusBarUpdateEvent>,
+    query: Query<&Direction, (With<IsPlayer>, Changed<Direction>)>,
+) {
+    for dir in query.iter() {
+        status_bar.send(StatusBarUpdateEvent {
+            key: "dir".to_string(),
+            value: format!("{:?}", dir),
         });
     }
 }

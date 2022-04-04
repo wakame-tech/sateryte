@@ -38,10 +38,10 @@ impl Dungeon {
     }
 
     /// 移動可能であれば, 移動先の座標を返す
-    pub fn get_next_pos(&self, pos: Point, dir: &Direction) -> Option<(Point, Direction)> {
+    pub fn get_next_pos(&self, pos: Point, dir: &Direction) -> Option<Point> {
         let next_pos = pos + dir.clone().into();
         if self.is_movable(&next_pos) {
-            return Some((next_pos, dir.clone()));
+            return Some(next_pos);
         }
         None
     }

@@ -17,7 +17,7 @@ use crate::{
 pub fn act_player(
     mut reader: EventReader<Action>,
     dungeon_query: Query<&Dungeon>,
-    mut player_query: Query<(&mut Position, &mut Direction, &mut Flags), With<IsPlayer>>,
+    mut player_query: Query<(&mut Point, &mut Direction, &mut Flags), With<IsPlayer>>,
     mut player_move_event: EventWriter<PlayerMovedEvent>,
 ) {
     for action in reader.iter() {
@@ -26,7 +26,7 @@ pub fn act_player(
             continue;
         }
         let dungeon = dungeon.unwrap();
-        let (mut pos, mut dir, mut flags) = player_query.single_mut();
+        let (mut point, mut dir, mut flags) = player_query.single_mut();
 
         if flags.is_dash {
             continue;
@@ -38,49 +38,53 @@ pub fn act_player(
         //     .map(|p| Point::new(p.x, p.y))
         //     .collect::<Vec<_>>();
 
-        let point = Point::new(pos.x, pos.y);
-        if let Some((new_pos, new_dir)) = match action {
-            Action::Step => None,
-            Action::Walk(dir) => dungeon.get_next_pos(point, dir),
-            Action::Dash(dir) => {
-                flags.is_dash = true;
-                dungeon.get_next_pos(point, dir)
+        match action {
+            Action::Step => {}
+            Action::Walk(d) => {
+                if let Some(new_pos) = dungeon.get_next_pos(*point, d) {
+                    *dir = d.clone();
+                    *point = new_pos;
+                    player_move_event.send(PlayerMovedEvent);
+                }
             }
-        } {
-            *dir = new_dir.clone();
-            pos.x = new_pos.x;
-            pos.y = new_pos.y;
+            Action::Dash(d) => {
+                flags.is_dash = true;
+                if let Some(new_pos) = dungeon.get_next_pos(*point, d) {
+                    *dir = d.clone();
+                    *point = new_pos;
+                    player_move_event.send(PlayerMovedEvent);
+                }
+            }
         }
         // if enemy_poses.contains(&new_pos) {
         //     return;
         // }
-        player_move_event.send(PlayerMovedEvent);
     }
 }
 
 /// ダッシュ中の時は自動で次の行動を決定する
 pub fn auto_dash(
     dungeon_query: Query<&Dungeon>,
-    mut player_query: Query<(&mut Position, &mut Direction, &mut Flags), With<IsPlayer>>,
+    mut player_query: Query<(&mut Point, &mut Direction, &mut Flags), With<IsPlayer>>,
     mut player_moved: EventWriter<PlayerMovedEvent>,
     mut enemy_moved: EventReader<EnemyMovedEvent>,
+    mut logger: EventWriter<LogEvent>,
 ) {
     for _ in enemy_moved.iter() {
-        let dungeon = dungeon_query.single();
-        let (mut pos, mut dir, mut flags) = player_query.single_mut();
+        logger.send(LogEvent::info("auto_dash"));
+        let (mut point, mut dir, mut flags) = player_query.single_mut();
         if !flags.is_dash {
-            continue;
+            return;
         }
+        let dungeon = dungeon_query.single();
 
-        let point = Point::new(pos.x, pos.y);
-        if let Some((new_pos, new_dir)) = dungeon.get_next_pos(point, &dir) {
-            *dir = new_dir.clone();
-            pos.x = new_pos.x;
-            pos.y = new_pos.y;
+        if let Some(new_pos) = dungeon.get_next_pos(*point, &dir) {
+            point.x = new_pos.x;
+            point.y = new_pos.y;
         }
-        flags.is_dash = !dungeon.cancel_dash(&Point::new(pos.x, pos.y), dir.as_ref());
-
+        flags.is_dash = !dungeon.cancel_dash(&point, dir.as_ref());
         player_moved.send(PlayerMovedEvent);
+        logger.send(LogEvent::info(format!("{:?}", *point).as_str()))
     }
 }
 
@@ -92,6 +96,22 @@ pub fn debug_player_action(
 ) {
     for _ in player_moved.iter() {
         let pos = player_pos.single();
-        logger.send(LogEvent::info(format!("{:?}", pos).as_str()))
+        // logger.send(LogEvent::info(format!("{:?}", pos).as_str()))
+    }
+}
+
+/// [Player] 座標を画面上の座標に反映させる
+pub fn render_player(
+    mut player_query: Query<
+        (&mut Position, &mut Point, &mut Direction, &mut Flags),
+        (With<IsPlayer>, Changed<Point>),
+    >,
+) {
+    for (mut position, point, _, flags) in player_query.iter_mut() {
+        // ダッシュ中は負荷軽減のため, 座標反映させない
+        if !flags.is_dash {
+            position.x = point.x;
+            position.y = point.y;
+        }
     }
 }

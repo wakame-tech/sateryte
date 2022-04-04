@@ -27,11 +27,10 @@ fn main() -> Result<(), anyhow::Error> {
         .insert_resource(settings)
         .insert_resource(DefaultTaskPoolOptions::with_num_threads(1))
         .insert_resource(ScheduleRunnerSettings::run_loop(
-            time::Duration::from_millis(1),
+            time::Duration::from_millis(16),
         ))
         .add_plugins(DefaultCrosstermPlugins)
         .add_plugin(KeyBoardInputPlugin)
-        .add_plugins(PlayerPlugins)
         .add_plugins(MessagePlugins)
         .add_plugin(WorldPlugin)
         .add_startup_system(start)
