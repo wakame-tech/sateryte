@@ -1,3 +1,4 @@
+pub mod enemy;
 pub mod geo;
 pub mod input;
 pub mod message;

@@ -4,20 +4,20 @@ use crossterm::style;
 use rand::prelude::IteratorRandom;
 
 use crate::{
-    message::{logger::LogEvent, status_bar::StatusBarUpdateEvent},
-    world::dungeon::Dungeon,
+    player::components::entity_bundle::EntityBundle,
+    world::{components::event::WorldGeneratedEvent, dungeon_world::dungeon::Dungeon},
 };
 
-use super::PlayerBundle;
-
+/// フロアを生成後, プレイヤーをスポーンさせる
 pub fn world_spawn_player(
     mut commands: Commands,
+    mut reader: EventReader<WorldGeneratedEvent>,
     dungeon_query: Query<&Dungeon, Added<Dungeon>>,
-    mut status_bar: EventWriter<StatusBarUpdateEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
 ) {
-    for dungeon in dungeon_query.iter() {
+    for _ in reader.iter() {
+        let dungeon = dungeon_query.single();
         let player = sprites.add(Sprite::new("@"));
         let color = stylemaps.add(StyleMap::default());
 
@@ -37,20 +37,7 @@ pub fn world_spawn_player(
             stylemap: color,
             ..Default::default()
         };
-        let player = PlayerBundle::new(sprite);
-
-        status_bar.send(StatusBarUpdateEvent {
-            key: "lv".to_string(),
-            value: player.level.0.to_string(),
-        });
-        status_bar.send(StatusBarUpdateEvent {
-            key: "exp".to_string(),
-            value: format!("{}/{}", player.exp.value, player.exp.next),
-        });
-        status_bar.send(StatusBarUpdateEvent {
-            key: "hp".to_string(),
-            value: format!("{}/{}", player.hp.value, player.hp.max),
-        });
+        let player = EntityBundle::new(sprite);
 
         commands.spawn_bundle(player);
     }

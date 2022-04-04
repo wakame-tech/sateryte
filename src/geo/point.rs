@@ -93,6 +93,12 @@ impl Into<Point> for Position {
     }
 }
 
+impl Into<Position> for Point {
+    fn into(self) -> Position {
+        Position::with_xy(self.x, self.y)
+    }
+}
+
 impl Add for Point {
     type Output = Point;
 

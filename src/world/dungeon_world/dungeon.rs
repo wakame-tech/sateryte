@@ -1,8 +1,11 @@
 use bevy::prelude::*;
 
-use crate::geo::{direction::Direction, point::Point};
+use crate::{
+    geo::{direction::Direction, point::Point},
+    world::components::tile::Tile,
+};
 
-use super::{region::Region, tile::Tile};
+use super::region::Region;
 
 #[derive(Component, Debug)]
 pub struct Dungeon {
@@ -51,7 +54,7 @@ impl Dungeon {
         cur
     }
 
-    pub fn get_next_pos(&self, pos: Point, dir: Direction) -> Point {
+    pub fn get_next_pos(&self, pos: Point, dir: &Direction) -> Point {
         if self.is_movable(pos + dir.clone().into()) {
             pos + dir.clone().into()
         } else {

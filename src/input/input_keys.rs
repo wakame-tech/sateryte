@@ -1,4 +1,4 @@
-use crate::{geo::direction::Direction, player::actions::Action};
+use crate::{geo::direction::Direction, player::components::action::Action};
 use bevy::{app::Events, prelude::*};
 use bevy_crossterm::prelude::{KeyCode, KeyEvent};
 
@@ -16,13 +16,13 @@ pub fn input_keys(keys: Res<Events<KeyEvent>>, mut sender: EventWriter<Action>) 
     for event in keys.get_reader().iter(&*keys) {
         let action = match event {
             key!('l') => Some(Action::Walk(Direction::Right)),
-            key!('L') => Some(Action::WalkToWall(Direction::Right)),
+            key!('L') => Some(Action::Dash(Direction::Right)),
             key!('h') => Some(Action::Walk(Direction::Left)),
-            key!('H') => Some(Action::WalkToWall(Direction::Left)),
+            key!('H') => Some(Action::Dash(Direction::Left)),
             key!('k') => Some(Action::Walk(Direction::Up)),
-            key!('K') => Some(Action::WalkToWall(Direction::Up)),
+            key!('K') => Some(Action::Dash(Direction::Up)),
             key!('j') => Some(Action::Walk(Direction::Down)),
-            key!('J') => Some(Action::WalkToWall(Direction::Down)),
+            key!('J') => Some(Action::Dash(Direction::Down)),
             _ => None,
         };
         if let Some(action) = action {

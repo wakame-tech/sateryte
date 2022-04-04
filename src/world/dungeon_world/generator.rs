@@ -3,9 +3,12 @@ use std::collections::HashSet;
 use itertools::Itertools;
 use rand::{prelude::ThreadRng, Rng};
 
-use crate::geo::{direction::Direction, point::Point, rect::Rect};
+use crate::{
+    geo::{direction::Direction, point::Point, rect::Rect},
+    world::components::{map::Map, tile::Tile},
+};
 
-use super::{dungeon::Dungeon, map::Map, region::Region, tile::Tile};
+use super::{dungeon::Dungeon, region::Region};
 
 pub trait Generator<T> {
     fn generate(&mut self, map: &mut Map) -> T;
