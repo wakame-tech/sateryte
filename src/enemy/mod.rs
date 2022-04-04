@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use rand::prelude::{IteratorRandom, SliceRandom};
 
 use crate::{
-    geo::direction::Direction, geo::point::Point, player::components::event::PlayerMoveEvent,
+    message::logger::LogEvent, player::components::event::PlayerMovedEvent,
     world::dungeon_world::dungeon::Dungeon,
 };
 use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
@@ -22,6 +22,10 @@ impl EnemyBundle {
         Self { tag: Enemy, sprite }
     }
 }
+
+/// 敵の行動が完了した時に発行される
+#[derive(Debug, Component)]
+pub struct EnemyMovedEvent;
 
 pub fn world_spawn_enemy(
     mut commands: Commands,
@@ -56,23 +60,28 @@ pub fn world_spawn_enemy(
 }
 
 pub fn enemy_move(
-    mut player_move_event: EventReader<PlayerMoveEvent>,
+    mut player_moved: EventReader<PlayerMovedEvent>,
+    mut enemy_moved: EventWriter<EnemyMovedEvent>,
     dungeon_query: Query<&Dungeon>,
     mut enemy_query: Query<(&Enemy, &mut Position)>,
+    mut logger: EventWriter<LogEvent>,
 ) {
-    for _ in player_move_event.iter() {
-        if let Some(dungeon) = dungeon_query.iter().next() {
-            for (enemy, mut position) in enemy_query.iter_mut() {
-                let mut rng = rand::thread_rng();
-                let new_pos = dungeon.get_next_pos(
-                    Point::new(position.x, position.y),
-                    Direction::around_4().choose(&mut rng).unwrap(),
-                );
-                if new_pos != Point::new(position.x, position.y) {
-                    position.x = new_pos.x;
-                    position.y = new_pos.y;
-                }
-            }
-        }
+    for _ in player_moved.iter() {
+        let dungeon = dungeon_query.single();
+
+        // for (enemy, mut position) in enemy_query.iter_mut() {
+        //     let mut rng = rand::thread_rng();
+        //     let new_pos = dungeon.get_next_pos(
+        //         Point::new(position.x, position.y),
+        //         Direction::around_4().choose(&mut rng).unwrap(),
+        //     );
+        //     if new_pos != Point::new(position.x, position.y) {
+        //         position.x = new_pos.x;
+        //         position.y = new_pos.y;
+        //     }
+        // }
+
+        enemy_moved.send(EnemyMovedEvent);
+        // logger.send(LogEvent::info("enemy moved"));
     }
 }

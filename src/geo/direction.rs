@@ -1,6 +1,8 @@
+use bevy::prelude::Component;
+
 use super::point::Point;
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Component, Clone, PartialEq, Eq)]
 pub enum Direction {
     Up,
     Down,
@@ -32,6 +34,19 @@ impl Direction {
             Direction::Down,
             Direction::Left,
             Direction::Right,
+        ]
+    }
+
+    pub fn around_8() -> Vec<Direction> {
+        vec![
+            Direction::Up,
+            Direction::Down,
+            Direction::Left,
+            Direction::Right,
+            Direction::UpLeft,
+            Direction::UpRight,
+            Direction::DownLeft,
+            Direction::DownRight,
         ]
     }
 }

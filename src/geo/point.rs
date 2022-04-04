@@ -1,7 +1,7 @@
 use std::{
     cmp::{max, min},
     fmt::Display,
-    ops::{Add, AddAssign, Sub, SubAssign},
+    ops::{Add, AddAssign, Neg, Sub, SubAssign},
 };
 
 use bevy_crossterm::components::Position;
@@ -23,6 +23,10 @@ impl Display for Point {
 impl Point {
     pub fn new(x: i32, y: i32) -> Self {
         Self { x, y }
+    }
+
+    pub fn zero() -> Self {
+        Self { x: 0, y: 0 }
     }
 
     pub fn times(&self, k: i32) -> Self {
@@ -96,6 +100,17 @@ impl Into<Point> for Position {
 impl Into<Position> for Point {
     fn into(self) -> Position {
         Position::with_xy(self.x, self.y)
+    }
+}
+
+impl Neg for Point {
+    type Output = Point;
+
+    fn neg(self) -> Point {
+        Point {
+            x: -self.x,
+            y: -self.y,
+        }
     }
 }
 

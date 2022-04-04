@@ -2,6 +2,7 @@ use bevy::prelude::*;
 
 use crate::{
     geo::{direction::Direction, point::Point},
+    player::components::entity_bundle::Flags,
     world::components::tile::Tile,
 };
 
@@ -25,40 +26,38 @@ impl Dungeon {
         Some(&self.tiles[pos.y as usize][pos.x as usize])
     }
 
-    pub fn is_movable(&self, pos: Point) -> bool {
-        self.at(&pos).map(|tile| tile.is_through()).unwrap_or(false)
+    pub fn is_movable(&self, pos: &Point) -> bool {
+        self.at(pos).map(|tile| tile.is_through()).unwrap_or(false)
     }
 
-    pub fn passage_exist_around(&self, pos: Point) -> bool {
+    /// 周囲4方向に [tile] が存在するか
+    fn exist_around(&self, pos: &Point, predicate: fn(&Tile) -> bool) -> bool {
         pos.around4()
             .iter()
-            .any(|p| self.at(p) == Some(&Tile::Passage))
+            .any(|p| self.at(p).map_or(false, predicate))
     }
 
-    /// Returns the next position of the wall in the given direction.
-    /// if passage is found around player pos, returns here.
-    pub fn get_next_wall_pos(&self, pos: Point, dir: &Direction) -> Point {
-        let on_passage = self.at(&pos) == Some(&Tile::Passage);
-        let mut cur = pos;
-        while self.is_movable(cur + dir.clone().into()) {
-            cur += dir.clone().into();
-            // stops on entrance of room
-            if on_passage && self.at(&cur) != Some(&Tile::Passage) {
-                break;
-            }
-            // stops around passage
-            if !on_passage && self.passage_exist_around(cur) {
-                break;
-            }
+    /// 移動可能であれば, 移動先の座標を返す
+    pub fn get_next_pos(&self, pos: Point, dir: &Direction) -> Option<(Point, Direction)> {
+        let next_pos = pos + dir.clone().into();
+        if self.is_movable(&next_pos) {
+            return Some((next_pos, dir.clone()));
         }
-        cur
+        None
     }
 
-    pub fn get_next_pos(&self, pos: Point, dir: &Direction) -> Point {
-        if self.is_movable(pos + dir.clone().into()) {
-            pos + dir.clone().into()
-        } else {
-            pos
+    /// ダッシュを終了するかの判定
+    pub fn cancel_dash(&self, pos: &Point, dir: &Direction) -> bool {
+        let on_passage = self.at(pos) == Some(&Tile::Passage);
+        // stops on entrance of room
+        if on_passage && self.at(pos) != Some(&Tile::Passage) {
+            return true;
         }
+        // stops around passage
+        if !on_passage && self.exist_around(pos, |tile| tile == &Tile::Passage) {
+            return true;
+        }
+        let next = pos.clone() + dir.clone().into();
+        !self.is_movable(&next)
     }
 }

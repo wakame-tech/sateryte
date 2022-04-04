@@ -6,4 +6,4 @@ pub struct PlayerSpawnedEvent;
 
 /// プレイヤーが1行動する毎に発行される
 #[derive(Debug, Component)]
-pub struct PlayerMoveEvent;
+pub struct PlayerMovedEvent;

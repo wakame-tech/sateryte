@@ -40,7 +40,6 @@ pub fn listen_world_generated(
     mut stylemaps: ResMut<Assets<StyleMap>>,
 ) {
     for dungeon in query.iter() {
-        println!("changed dungeon");
         for (y, row) in dungeon.tiles.iter().enumerate() {
             for (x, tile) in row.iter().enumerate() {
                 let stylemap = stylemaps.add(StyleMap::new(tile_style(tile), vec![]));

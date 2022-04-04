@@ -3,7 +3,7 @@ use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 use rand::prelude::IteratorRandom;
 
 use crate::{
-    player::components::entity_bundle::EntityBundle, world::dungeon_world::dungeon::Dungeon,
+    player::components::entity_bundle::PlayerBundle, world::dungeon_world::dungeon::Dungeon,
 };
 
 /// フロアを生成後, プレイヤーをスポーンさせる
@@ -33,7 +33,7 @@ pub fn world_spawn_player(
             stylemap: color,
             ..Default::default()
         };
-        let player = EntityBundle::new(sprite);
+        let player = PlayerBundle::new(sprite);
 
         commands.spawn_bundle(player);
     }

@@ -8,6 +8,7 @@ fn parse_key_binding(binding: &str) -> KeyEvent {
     let with_ctrl = binding.starts_with("C-");
     let rest = binding.trim_start_matches("S-").trim_start_matches("C-");
     let code = match rest {
+        "<space>" => KeyCode::Char(' '),
         "<up>" => KeyCode::Up,
         "<down>" => KeyCode::Down,
         "<left>" => KeyCode::Left,
@@ -33,6 +34,8 @@ pub fn input_keys(keys: Res<Events<KeyEvent>>, mut sender: EventWriter<Action>) 
         //
         // dash: S-
         let key_bindings: Vec<(Action, Vec<&str>)> = vec![
+            // 足踏み
+            (Action::Step, vec!["<space>"]),
             // 右
             (Action::Walk(Direction::Right), vec!["l", "<right>"]),
             // 右ダッシュ

@@ -11,6 +11,15 @@ pub struct Logger {
 pub struct LogEvent {
     pub text: String,
 }
+
+impl LogEvent {
+    pub fn info(text: &str) -> Self {
+        Self {
+            text: format!("[info] {}", text),
+        }
+    }
+}
+
 pub fn setup_logger(mut commands: Commands) {
     commands.spawn().insert(Logger {
         messages: Vec::new(),
