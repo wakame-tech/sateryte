@@ -13,10 +13,6 @@ pub struct WorldGenerateEvent {
     pub floor: u16,
 }
 
-/// フロアが生成された時に呼ばれるイベント
-#[derive(Debug, Component)]
-pub struct WorldGeneratedEvent;
-
 /// アイテムをスポーンさせる時に呼ばれるイベント
 #[derive(Debug, Component)]
 pub struct ItemSpawnEvent {

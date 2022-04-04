@@ -15,6 +15,15 @@ pub struct StatusBarUpdateEvent {
     pub value: String,
 }
 
+impl StatusBarUpdateEvent {
+    pub fn new(key: &str, value: &str) -> Self {
+        Self {
+            key: key.to_string(),
+            value: value.to_string(),
+        }
+    }
+}
+
 pub fn setup_status_bar(mut commands: Commands) {
     commands.spawn().insert(StatusBar {
         map: HashMap::new(),

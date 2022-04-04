@@ -1,26 +1,34 @@
 use bevy::prelude::*;
 use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 
-use crate::world::{
-    components::{
-        event::{WorldGenerateEvent, WorldGeneratedEvent},
-        map::Map,
-        tile::tile_style,
-    },
-    dungeon_world::{
-        dungeon::Dungeon,
-        generator::{DungeonGenerator, Generator},
+use crate::{
+    message::status_bar::StatusBarUpdateEvent,
+    world::{
+        components::{event::WorldGenerateEvent, map::Map, tile::tile_style},
+        dungeon_world::{
+            dungeon::Dungeon,
+            generator::{DungeonGenerator, Generator},
+        },
     },
 };
 
 /// フロアを生成する
-pub fn spawn_floor(mut commands: Commands, mut events: EventReader<WorldGenerateEvent>) {
+pub fn spawn_floor(
+    mut commands: Commands,
+    mut events: EventReader<WorldGenerateEvent>,
+    mut writer: EventWriter<StatusBarUpdateEvent>,
+) {
     for event in events.iter() {
-        dbg!(&event);
         let mut map = Map::new(event.world_size);
         let mut generator = DungeonGenerator;
         let dungeon = generator.generate(&mut map);
         commands.spawn().insert(dungeon);
+
+        let event = StatusBarUpdateEvent::new(
+            "floor",
+            format!("{} {}F", event.world_name, event.floor).as_str(),
+        );
+        writer.send(event);
     }
 }
 
@@ -30,7 +38,6 @@ pub fn listen_world_generated(
     query: Query<&Dungeon, Changed<Dungeon>>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<StyleMap>>,
-    mut writer: EventWriter<WorldGeneratedEvent>,
 ) {
     for dungeon in query.iter() {
         println!("changed dungeon");
@@ -46,6 +53,5 @@ pub fn listen_world_generated(
                 });
             }
         }
-        writer.send(WorldGeneratedEvent);
     }
 }

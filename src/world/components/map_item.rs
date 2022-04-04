@@ -1,5 +1,4 @@
 use bevy::prelude::*;
-use bevy_crossterm::components::{Color, Sprite, Style};
 
 #[derive(Component, Debug, Clone)]
 pub enum MapItem {
