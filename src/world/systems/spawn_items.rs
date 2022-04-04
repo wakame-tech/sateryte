@@ -1,26 +1,33 @@
 use bevy::prelude::*;
 use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, Style, StyleMap};
 
-use crate::world::{components::event::ItemSpawnEvent, dungeon_world::dungeon::Dungeon};
+use crate::{
+    message::logger::LogEvent,
+    world::{components::event::ItemSpawnEvent, dungeon_world::dungeon::Dungeon},
+};
 
 #[derive(Component, Debug, Clone)]
 pub enum MapItem {
     Potion,
 }
 
-pub fn spawn_items(dungeon_query: Query<&Dungeon>, mut writer: EventWriter<ItemSpawnEvent>) {
-    let mut rng = rand::thread_rng();
-    let dungeon = dungeon_query.single();
-
-    for region in &dungeon.areas {
-        // spawn items
-        for _ in 0..3 {
-            if let Some(pos) = region.random_floor(&mut rng) {
-                let event = ItemSpawnEvent {
-                    pos,
-                    item: MapItem::Potion,
-                };
-                writer.send(event);
+pub fn spawn_items(
+    dungeon_query: Query<&Dungeon, Added<Dungeon>>,
+    mut writer: EventWriter<ItemSpawnEvent>,
+) {
+    for dungeon in dungeon_query.iter() {
+        println!("spawn_items");
+        let mut rng = rand::thread_rng();
+        for region in &dungeon.areas {
+            // spawn items
+            for _ in 0..3 {
+                if let Some(pos) = region.random_floor(&mut rng) {
+                    let event = ItemSpawnEvent {
+                        pos,
+                        item: MapItem::Potion,
+                    };
+                    writer.send(event);
+                }
             }
         }
     }
@@ -44,6 +51,7 @@ pub fn render_item(
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
     reader: &mut EventReader<ItemSpawnEvent>,
+    mut logger: EventWriter<LogEvent>,
 ) {
     for event in reader.iter() {
         let char = item_char(&event.item);
@@ -56,5 +64,8 @@ pub fn render_item(
             stylemap,
             ..Default::default()
         });
+        logger.send(LogEvent::info(
+            format!("spawn item: {:?}", event.item).as_str(),
+        ));
     }
 }

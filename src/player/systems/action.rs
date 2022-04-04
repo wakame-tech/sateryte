@@ -14,6 +14,7 @@ use crate::{
 };
 
 /// 入力を受け, プレイヤーの行動をする
+/// FIXME: 幅2マスでダッシュするとダッシュ終わりに描画が更新されない
 pub fn act_player(
     mut reader: EventReader<Action>,
     dungeon_query: Query<&Dungeon>,
@@ -48,8 +49,8 @@ pub fn act_player(
                 }
             }
             Action::Dash(d) => {
-                flags.is_dash = true;
                 if let Some(new_pos) = dungeon.get_next_pos(*point, d) {
+                    flags.is_dash = true;
                     *dir = d.clone();
                     *point = new_pos;
                     player_move_event.send(PlayerMovedEvent);
@@ -71,7 +72,7 @@ pub fn auto_dash(
     mut logger: EventWriter<LogEvent>,
 ) {
     for _ in enemy_moved.iter() {
-        logger.send(LogEvent::info("auto_dash"));
+        // logger.send(LogEvent::info("auto_dash"));
         let (mut point, mut dir, mut flags) = player_query.single_mut();
         if !flags.is_dash {
             return;
@@ -84,19 +85,19 @@ pub fn auto_dash(
         }
         flags.is_dash = !dungeon.cancel_dash(&point, dir.as_ref());
         player_moved.send(PlayerMovedEvent);
-        logger.send(LogEvent::info(format!("{:?}", *point).as_str()))
+        // logger.send(LogEvent::info(format!("{:?}", *point).as_str()))
     }
 }
 
 /// デバッグ用
 pub fn debug_player_action(
     mut player_moved: EventReader<PlayerMovedEvent>,
-    player_pos: Query<&Position, With<IsPlayer>>,
+    value: Query<&Flags, With<IsPlayer>>,
     mut logger: EventWriter<LogEvent>,
 ) {
     for _ in player_moved.iter() {
-        let pos = player_pos.single();
-        // logger.send(LogEvent::info(format!("{:?}", pos).as_str()))
+        let v = value.single();
+        logger.send(LogEvent::info(format!("{:?}", v).as_str()))
     }
 }
 

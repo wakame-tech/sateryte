@@ -1,8 +1,8 @@
 use bevy::{app::PluginGroupBuilder, prelude::*};
 
 use self::{
-    logger::{draw_logger, logger_listener, setup_logger, LogEvent},
-    status_bar::{draw_status_bar, setup_status_bar, status_bar_listener, StatusBarUpdateEvent},
+    logger::{logger_listener, LogEvent, Logger},
+    status_bar::{status_bar_listener, StatusBar, StatusBarUpdateEvent},
 };
 
 pub mod logger;
@@ -14,9 +14,8 @@ pub struct LoggerPlugin;
 impl Plugin for LoggerPlugin {
     fn build(&self, app: &mut App) {
         app.add_event::<LogEvent>()
-            .add_startup_system(setup_logger)
-            .add_system(logger_listener)
-            .add_system(draw_logger);
+            .init_resource::<Logger>()
+            .add_system(logger_listener);
     }
 }
 
@@ -25,9 +24,8 @@ pub struct StatusBarPlugin;
 impl Plugin for StatusBarPlugin {
     fn build(&self, app: &mut App) {
         app.add_event::<StatusBarUpdateEvent>()
-            .add_startup_system(setup_status_bar)
-            .add_system(status_bar_listener)
-            .add_system(draw_status_bar);
+            .init_resource::<StatusBar>()
+            .add_system(status_bar_listener);
     }
 }
 

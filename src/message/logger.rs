@@ -1,8 +1,10 @@
-use bevy::prelude::*;
+use std::{fs::OpenOptions, io::Write};
+
+use bevy::{asset::HandleId, prelude::*};
 use bevy_crossterm::components::{Color, Colors, Position, Sprite, SpriteBundle, StyleMap};
 use terminal_size::{terminal_size, Height, Width};
 
-#[derive(Component)]
+#[derive(Component, Default)]
 pub struct Logger {
     pub messages: Vec<LogEvent>,
 }
@@ -20,57 +22,51 @@ impl LogEvent {
     }
 }
 
-pub fn setup_logger(mut commands: Commands) {
-    commands.spawn().insert(Logger {
-        messages: Vec::new(),
-    });
+// デバッグ用
+pub fn dump_log(message: String) {
+    let file = OpenOptions::new()
+        .write(true)
+        .create(true)
+        .append(true)
+        .open("debug.log")
+        .unwrap();
+
+    let mut writer = std::io::BufWriter::new(file);
+    writer.write(format!("{}\n", message).as_bytes()).unwrap();
 }
 
-pub fn draw_logger(
+pub fn logger_listener(
     mut commands: Commands,
-    logger_query: Query<&Logger, Changed<Logger>>,
+    mut logger: ResMut<Logger>,
+    mut reader: EventReader<LogEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<StyleMap>>,
 ) {
-    for logger in logger_query.iter() {
-        let color = stylemaps.add(StyleMap::with_colors(Colors::new(
-            Color::Black,
-            Color::White,
-        )));
-        let (Width(w), Height(h)) = terminal_size().unwrap();
-        let width = w - 80;
-        let content = logger
-            .messages
-            .iter()
-            .enumerate()
-            .rev()
-            .take(h.into())
-            .map(|(i, mes)| {
-                format!(
-                    "[{}] {:width$}",
-                    i,
-                    mes.text.as_str(),
-                    width = width as usize
-                )
-            })
-            .collect::<Vec<String>>()
-            .join("\n");
-        let sprite = sprites.add(Sprite::new(content));
-        let sprite = SpriteBundle {
-            sprite,
-            position: Position::with_xy(80, 0),
-            stylemap: color,
-            ..Default::default()
-        };
-        commands.spawn_bundle(sprite);
-    }
-}
-
-pub fn logger_listener(mut logger_query: Query<&mut Logger>, mut reader: EventReader<LogEvent>) {
     for message in reader.iter() {
-        let mut mes = logger_query.single_mut();
-        mes.messages.push(LogEvent {
+        logger.messages.push(LogEvent {
             text: message.text.clone(),
         });
+        dump_log(message.text.clone());
+
+        // let color = stylemaps.add(StyleMap::with_colors(Colors::new(
+        //     Color::Black,
+        //     Color::White,
+        // )));
+        // let (Width(w), Height(h)) = terminal_size().unwrap();
+        // let width = w - 80;
+        // let content = format!(
+        //     "[{}] {:width$}",
+        //     logger.messages.len() - 1,
+        //     message.text.as_str(),
+        //     width = width as usize
+        // );
+        // let sprite = sprites.add(Sprite::new(content));
+        // let sprite = SpriteBundle {
+        //     sprite,
+        //     position: Position::with_xy(80, (logger.messages.len() % (h as usize)) as i32),
+        //     stylemap: color,
+        //     ..Default::default()
+        // };
+        // commands.spawn_bundle(sprite);
     }
 }

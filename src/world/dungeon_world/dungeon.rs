@@ -2,7 +2,6 @@ use bevy::prelude::*;
 
 use crate::{
     geo::{direction::Direction, point::Point},
-    player::components::entity_bundle::Flags,
     world::components::tile::Tile,
 };
 
