@@ -6,6 +6,8 @@ use bevy::prelude::*;
 pub enum Action {
     /// 足踏みをする
     Step,
+    /// 方向転換
+    Turn(Direction),
     /// 1マス移動する
     Walk(Direction),
     /// 壁まで移動する

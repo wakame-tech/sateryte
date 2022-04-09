@@ -1,14 +1,22 @@
 use bevy_crossterm::components::{Color, Sprite, Style};
 
+/// マップの地形
 #[derive(Debug, Clone, PartialEq, Eq)]
 
 pub enum Tile {
+    /// 壁
     Wall,
+    /// フロアと水平に隣接している壁
     WallV,
+    /// フロアと垂直に隣接している壁
     WallH,
+    /// デバッグ用, 任意の文字
     Debug(String),
+    /// 通路
     Passage,
+    /// フロア
     Floor,
+    /// 階段
     Stairs,
 }
 
@@ -36,14 +44,18 @@ impl Into<Sprite> for Tile {
 }
 
 pub fn tile_style(tile: &Tile) -> Style {
+    let debug_color = Color::DarkYellow;
+    let wall_color = Color::Rgb {
+        r: 128u8,
+        g: 128u8,
+        b: 128u8,
+    };
+    let edge_wall_color = Color::Green;
+
     match tile {
-        Tile::Debug(_) => Style::with_fg(Color::DarkYellow),
-        Tile::Wall => Style::with_fg(Color::Rgb {
-            r: 128u8,
-            g: 128u8,
-            b: 128u8,
-        }),
-        Tile::WallH | Tile::WallV | Tile::Passage => Style::with_fg(Color::Green),
+        Tile::Debug(_) => Style::with_fg(debug_color),
+        Tile::Wall => Style::with_fg(wall_color),
+        Tile::WallH | Tile::WallV | Tile::Passage => Style::with_fg(edge_wall_color),
         _ => Style::default(),
     }
 }

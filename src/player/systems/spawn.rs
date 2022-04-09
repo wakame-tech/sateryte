@@ -30,7 +30,7 @@ pub fn world_spawn_player(
 
         let sprite = SpriteBundle {
             sprite: player,
-            position: Position::with_xy(spawn_pos.x, spawn_pos.y),
+            position: Position::new(spawn_pos.x, spawn_pos.y, 2),
             stylemap: color,
             ..Default::default()
         };

@@ -33,6 +33,7 @@ pub fn input_keys(keys: Res<Events<KeyEvent>>, mut sender: EventWriter<Action>) 
         // b j n
         //
         // dash: S-
+        // turn: C-
         let key_bindings: Vec<(Action, Vec<&str>)> = vec![
             // 足踏み
             (Action::Step, vec!["<space>"]),

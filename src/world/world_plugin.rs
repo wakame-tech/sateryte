@@ -7,10 +7,7 @@ use crate::{
 
 use super::{
     components::event::{ItemSpawnEvent, WorldGenerateEvent},
-    systems::{
-        generate::{listen_world_generated, spawn_floor},
-        spawn_items::spawn_items,
-    },
+    systems::{render_floor::render_tiles, spawn_floor::spawn_floor, spawn_items::spawn_items},
 };
 
 /// ワールドの生成に関するプラグイン
@@ -20,7 +17,7 @@ impl Plugin for FloorGeneratorPlugin {
     fn build(&self, app: &mut App) {
         app.add_event::<WorldGenerateEvent>()
             .add_system(spawn_floor.label("spawn_floor"))
-            .add_system(listen_world_generated.after("spawn_floor"));
+            .add_system(render_tiles.after("spawn_floor"));
     }
 }
 

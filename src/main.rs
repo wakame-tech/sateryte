@@ -9,11 +9,12 @@ use sateryte::{
     message::MessagePlugins,
     world::{components::event::WorldGenerateEvent, world_plugin::WorldPlugin},
 };
+use terminal_size::{terminal_size, Height, Width};
 
 /// エントリポイント
-fn start(mut writer: EventWriter<WorldGenerateEvent>) {
+fn start(mut writer: EventWriter<WorldGenerateEvent>, options: Res<SateryteOptions>) {
     let event = WorldGenerateEvent {
-        world_size: Size::new(80, 25),
+        world_size: options.size - Size::new(0, 1),
         world_name: "test".to_string(),
         floor: 1,
     };
@@ -37,14 +38,21 @@ fn init_logger() -> Result<(), anyhow::Error> {
 }
 
 fn main() -> Result<(), anyhow::Error> {
-    let mut settings = CrosstermWindowSettings::default();
+    // init logger
     init_logger()?;
     log::debug!("logger initialized");
 
+    // set screen size
+    let (Width(w), Height(h)) = terminal_size().unwrap();
+    let screen_size = Size::new(w as usize, h as usize);
+    let sateryte_options = SateryteOptions::new(screen_size - Size::new(0, 1));
+
+    // set title
+    let mut settings = CrosstermWindowSettings::default();
     settings.set_title("satellite-rs");
 
     App::new()
-        .insert_resource(SateryteOptions::default())
+        .insert_resource(sateryte_options)
         .insert_resource(settings)
         .insert_resource(DefaultTaskPoolOptions::with_num_threads(1))
         .insert_resource(ScheduleRunnerSettings::run_loop(

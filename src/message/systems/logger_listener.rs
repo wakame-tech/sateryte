@@ -1,8 +1,8 @@
 use bevy::prelude::*;
-use bevy_crossterm::components::{Sprite, StyleMap};
+use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, StyleMap};
 use log;
 
-use crate::message::components::logger::{LogEvent, Logger};
+use crate::message::components::logger::{LogEvent, Logger, LoggerOptions};
 
 pub fn logger_listener(
     mut commands: Commands,
@@ -10,6 +10,7 @@ pub fn logger_listener(
     mut reader: EventReader<LogEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<StyleMap>>,
+    logger_options: Res<LoggerOptions>,
 ) {
     for message in reader.iter() {
         logger.messages.push(LogEvent {
@@ -17,22 +18,17 @@ pub fn logger_listener(
         });
         log::info!("[game logger] {}", message.text);
 
-        // let color = stylemaps.add(StyleMap::with_colors(Colors::new(
-        //     Color::Black,
-        //     Color::White,
-        // )));
-        // let (Width(w), Height(h)) = terminal_size().unwrap();
-        // let width = w - 80;
+        // let color = stylemaps.add(StyleMap::with_fg(Color::White));
         // let content = format!(
         //     "[{}] {:width$}",
         //     logger.messages.len() - 1,
         //     message.text.as_str(),
-        //     width = width as usize
+        //     width = logger_options.area.size.w,
         // );
         // let sprite = sprites.add(Sprite::new(content));
         // let sprite = SpriteBundle {
         //     sprite,
-        //     position: Position::with_xy(80, (logger.messages.len() % (h as usize)) as i32),
+        //     position: logger_options.area.pos.into(),
         //     stylemap: color,
         //     ..Default::default()
         // };

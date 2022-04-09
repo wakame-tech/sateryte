@@ -1,7 +1,7 @@
 use bevy::{asset::HandleId, prelude::*};
 use bevy_crossterm::components::{Color, Colors, Position, Sprite, SpriteBundle, StyleMap};
 
-use crate::message::components::status_bar::{StatusBar, StatusBarUpdateEvent};
+use crate::message::components::status_bar::{StatusBar, StatusBarOptions, StatusBarUpdateEvent};
 
 pub fn status_bar_listener(
     mut commands: Commands,
@@ -9,6 +9,7 @@ pub fn status_bar_listener(
     mut reader: EventReader<StatusBarUpdateEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
     mut stylemaps: ResMut<Assets<StyleMap>>,
+    options: Res<StatusBarOptions>,
 ) {
     for event in reader.iter() {
         status_bar
@@ -30,7 +31,7 @@ pub fn status_bar_listener(
             )));
             let bundle = SpriteBundle {
                 sprite,
-                position: Position::with_xy(0, 28),
+                position: Position::new(options.area.pos.x, options.area.pos.y, 4),
                 stylemap: color,
                 ..Default::default()
             };

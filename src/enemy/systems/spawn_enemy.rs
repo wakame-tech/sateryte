@@ -26,7 +26,7 @@ pub fn world_spawn_enemy(
 
         let sprite = SpriteBundle {
             sprite: enemy,
-            position: Position::with_xy(spawn_pos.x, spawn_pos.y),
+            position: Position::new(spawn_pos.x, spawn_pos.y, 3),
             stylemap: color,
             ..Default::default()
         };

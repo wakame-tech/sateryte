@@ -1,13 +1,28 @@
 use std::collections::HashMap;
 
+use crate::geo::rect::Rect;
 use bevy::{asset::HandleId, prelude::*};
 use bevy_crossterm::components::Sprite;
+use log;
 use terminal_size::{terminal_size, Width};
 
 #[derive(Default, Component)]
 pub struct StatusBar {
     pub props: HashMap<String, String>,
     pub handle: Option<HandleId>,
+}
+
+#[derive(Component)]
+pub struct StatusBarOptions {
+    /// 表示領域
+    pub area: Rect,
+}
+
+impl StatusBarOptions {
+    pub fn new(area: Rect) -> Self {
+        log::debug!("stautbar {}", area);
+        Self { area }
+    }
 }
 
 impl StatusBar {

@@ -1,9 +1,8 @@
 use bevy::prelude::*;
 
-use crate::{
-    geo::{point::Point, size::Size},
-    world::systems::spawn_items::MapItem,
-};
+use crate::geo::{point::Point, size::Size};
+
+use super::map_item::MapItem;
 
 /// フロアが生成される時に呼ばれるイベント
 #[derive(Debug, Component)]

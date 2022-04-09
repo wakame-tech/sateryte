@@ -20,6 +20,7 @@ pub struct Flags {
 pub struct PlayerBundle {
     pub tag: IsPlayer,
     /// 座標
+    /// NOTE:
     /// この座標を変更しても画面には反映されない
     /// sprite::Position を変更すると画面にも反映される
     pub position: Point,

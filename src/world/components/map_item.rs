@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+/// マップに落ちているアイテム
 #[derive(Component, Debug, Clone)]
 pub enum MapItem {
     Potion,

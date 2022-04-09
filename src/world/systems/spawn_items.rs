@@ -2,14 +2,10 @@ use bevy::prelude::*;
 use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, Style, StyleMap};
 
 use crate::{
-    dungeon_world::dungeon::Dungeon, message::components::logger::LogEvent,
-    world::components::event::ItemSpawnEvent,
+    dungeon_world::dungeon::Dungeon,
+    message::components::logger::LogEvent,
+    world::components::{event::ItemSpawnEvent, map_item::MapItem},
 };
-
-#[derive(Component, Debug, Clone)]
-pub enum MapItem {
-    Potion,
-}
 
 pub fn spawn_items(
     dungeon_query: Query<&Dungeon, Added<Dungeon>>,
@@ -49,7 +45,7 @@ pub fn item_style(item: &MapItem) -> Style {
 pub fn render_item(
     mut commands: Commands,
     mut sprites: ResMut<Assets<Sprite>>,
-    mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
+    mut stylemaps: ResMut<Assets<StyleMap>>,
     reader: &mut EventReader<ItemSpawnEvent>,
     mut logger: EventWriter<LogEvent>,
 ) {
@@ -58,9 +54,10 @@ pub fn render_item(
         let style = item_style(&event.item);
         let sprite = sprites.add(Sprite::new(char));
         let stylemap = stylemaps.add(StyleMap::new(style, vec![]));
+        let pos = event.pos.clone();
         commands.spawn_bundle(SpriteBundle {
             sprite,
-            position: event.pos.clone().into(),
+            position: Position::new(pos.x, pos.y, 1),
             stylemap,
             ..Default::default()
         });

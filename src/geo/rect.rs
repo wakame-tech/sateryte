@@ -17,6 +17,13 @@ impl Display for Rect {
 }
 
 impl Rect {
+    pub fn new(x: i32, y: i32, w: usize, h: usize) -> Self {
+        Self {
+            pos: Point::new(x, y),
+            size: Size::new(w, h),
+        }
+    }
+
     pub fn is_edge(&self, pos: Point) -> bool {
         self.is_horizontal_edge(pos) || self.is_vertical_edge(pos)
     }
