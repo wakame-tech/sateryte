@@ -1,9 +1,10 @@
 use bevy::{app::PluginGroupBuilder, prelude::*};
 
 use super::{
-    components::{action::Action, event::PlayerMovedEvent},
+    components::{action::Action, event::PlayerActedEvent},
     systems::{
-        action::{act_player, auto_dash, debug_player_action, render_player},
+        action::{act_player, auto_dash, render_player},
+        guide_line::spawn_guide_lines,
         spawn::world_spawn_player,
         status_bar::{
             render_player_dir_status, render_player_exp_status, render_player_hp_status,
@@ -18,12 +19,11 @@ pub struct PlayerActionPlugin;
 impl Plugin for PlayerActionPlugin {
     fn build(&self, app: &mut App) {
         app.add_event::<Action>()
-            .add_event::<PlayerMovedEvent>()
+            .add_event::<PlayerActedEvent>()
             .add_system(world_spawn_player)
             .add_system(act_player.label("act_player"))
-            .add_system(auto_dash)
-            .add_system(render_player.after("act_player"))
-            .add_system(debug_player_action);
+            .add_system(auto_dash.label("auto_dash").after("act_player"))
+            .add_system(render_player.after("auto_dash"));
     }
 }
 
@@ -35,6 +35,7 @@ impl Plugin for PlayerStatusBarPlugin {
         app.add_system(render_player_position_status.after("act_player"))
             .add_system(render_player_hp_status.after("act_player"))
             .add_system(render_player_exp_status.after("act_player"))
+            .add_system(spawn_guide_lines.after("act_player"))
             .add_system(render_player_dir_status.after("act_player"));
     }
 }

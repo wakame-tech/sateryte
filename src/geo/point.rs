@@ -1,7 +1,7 @@
 use std::{
     cmp::{max, min},
     fmt::Display,
-    ops::{Add, AddAssign, Neg, Sub, SubAssign},
+    ops::{Add, AddAssign, Index, IndexMut, Neg, Sub, SubAssign},
 };
 
 use bevy::prelude::Component;
@@ -15,6 +15,20 @@ pub struct Point {
     pub y: i32,
 }
 
+impl<T> Index<Point> for Vec<Vec<T>> {
+    type Output = T;
+
+    fn index(&self, index: Point) -> &Self::Output {
+        &self[index.y as usize][index.x as usize]
+    }
+}
+
+impl<T> IndexMut<Point> for Vec<Vec<T>> {
+    fn index_mut(&mut self, index: Point) -> &mut Self::Output {
+        &mut self[index.y as usize][index.x as usize]
+    }
+}
+
 impl Display for Point {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "({}, {})", self.x, self.y)
@@ -24,6 +38,19 @@ impl Display for Point {
 impl Point {
     pub fn new(x: i32, y: i32) -> Self {
         Self { x, y }
+    }
+
+    pub fn from_dir(d: &Direction) -> Self {
+        match d {
+            Direction::Up => Point::new(0, -1),
+            Direction::Down => Point::new(0, 1),
+            Direction::Left => Point::new(-1, 0),
+            Direction::Right => Point::new(1, 0),
+            Direction::UpLeft => Point::new(-1, -1),
+            Direction::UpRight => Point::new(1, -1),
+            Direction::DownLeft => Point::new(-1, 1),
+            Direction::DownRight => Point::new(1, 1),
+        }
     }
 
     pub fn zero() -> Self {
@@ -57,6 +84,7 @@ impl Point {
         points
     }
 
+    /// 周囲 [distance] マス
     pub fn around(&self, distance: i32) -> Vec<Point> {
         let mut points = Vec::new();
         for dy in -distance..=distance {
@@ -71,10 +99,11 @@ impl Point {
         points
     }
 
+    /// 周囲4方向
     pub fn around4(&self) -> Vec<Point> {
         let mut points = Vec::new();
         for d in Direction::around_4() {
-            points.push(*self + d.into());
+            points.push(*self + Point::from_dir(&d));
         }
         points
     }

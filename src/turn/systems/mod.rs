@@ -7,9 +7,11 @@ use crate::{
 
 use super::components::turn::Turn;
 
-pub fn setup_turn(mut commands: Commands, query: Query<&Dungeon, Added<Dungeon>>) {
-    for _ in query.iter() {
-        commands.spawn().insert(Turn::new());
+pub fn setup_turn(mut commands: Commands, dungeon: Option<Res<Dungeon>>) {
+    if let Some(ref dungeon) = dungeon {
+        if dungeon.is_added() {
+            commands.spawn().insert(Turn::new());
+        }
     }
 }
 

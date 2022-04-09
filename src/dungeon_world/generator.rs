@@ -1,17 +1,17 @@
-use std::collections::HashSet;
+use std::{collections::HashSet, vec};
 
 use itertools::Itertools;
 use rand::{prelude::ThreadRng, Rng};
 
 use crate::{
     geo::{direction::Direction, point::Point, rect::Rect},
-    world::components::{map::Map, tile::Tile},
+    world::components::{map::Floor, tile::Tile},
 };
 
 use super::{dungeon::Dungeon, region::Region};
 
 pub trait Generator<T> {
-    fn generate(&mut self, map: &mut Map) -> T;
+    fn generate(&mut self, map: &mut Floor) -> T;
 }
 
 fn devide_rec(rng: &mut ThreadRng, rect: Rect, min_area_size: usize) -> Vec<Rect> {
@@ -35,17 +35,18 @@ fn devide_rec(rng: &mut ThreadRng, rect: Rect, min_area_size: usize) -> Vec<Rect
     rects
 }
 
-fn build_region(map: &mut Map, region: &Region) {
+fn build_region(map: &mut Floor, region: &Region) {
     if let Some(room) = &region.room {
         for y in room.pos.y..(room.pos.y + room.size.h as i32) {
             for x in room.pos.x..(room.pos.x + room.size.w as i32) {
-                map.tiles[y as usize][x as usize] = Tile::Floor;
-                if room.is_vertical_edge((x, y).into()) {
-                    map.tiles[y as usize][x as usize] = Tile::WallV;
+                let p = Point::new(x, y);
+                map.tiles[p] = Tile::Floor;
+                if room.is_vertical_edge(p) {
+                    map.tiles[p] = Tile::WallV;
                     // map.tiles[y as usize][x as usize] = Tile::Debug(i.to_string());
                 }
-                if room.is_horizontal_edge((x, y).into()) {
-                    map.tiles[y as usize][x as usize] = Tile::WallH;
+                if room.is_horizontal_edge(p) {
+                    map.tiles[p] = Tile::WallH;
                     // map.tiles[y as usize][x as usize] = Tile::Debug(i.to_string());
                 }
             }
@@ -75,7 +76,7 @@ fn get_poses_align(from: Point, to: Point, dir: Direction, wall: i32) -> HashSet
     }
 }
 
-fn build_passage(map: &mut Map, from: &Region, to: &Region) {
+fn build_passage(map: &mut Floor, from: &Region, to: &Region) {
     if from.room.is_none() || to.room.is_none() {
         return;
     }
@@ -91,7 +92,7 @@ fn build_passage(map: &mut Map, from: &Region, to: &Region) {
 
         let tile = Tile::Passage;
         for pos in get_poses_align(from_pos, to_pos, dir, wall) {
-            map.tiles[pos.y as usize][pos.x as usize] = tile.clone();
+            map.tiles[pos] = tile.clone();
         }
     }
 }
@@ -99,7 +100,7 @@ fn build_passage(map: &mut Map, from: &Region, to: &Region) {
 pub struct DungeonGenerator;
 
 impl Generator<Dungeon> for DungeonGenerator {
-    fn generate(&mut self, map: &mut Map) -> Dungeon {
+    fn generate(&mut self, map: &mut Floor) -> Dungeon {
         let mut rng = rand::thread_rng();
         let floor = Rect {
             pos: (0, 0).into(),
@@ -118,6 +119,7 @@ impl Generator<Dungeon> for DungeonGenerator {
             let (f, t) = (&c[0], &c[1]);
             build_passage(map, f, t);
         }
+
         Dungeon {
             tiles: map.tiles.clone(),
             areas: regions,

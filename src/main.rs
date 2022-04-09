@@ -7,15 +7,15 @@ use sateryte::{
     geo::size::Size,
     input::input_plugin::KeyBoardInputPlugin,
     message::MessagePlugins,
-    world::{components::event::WorldGenerateEvent, world_plugin::WorldPlugin},
+    world::{components::event::FloorGenerateEvent, world_plugin::WorldPlugin},
 };
 use terminal_size::{terminal_size, Height, Width};
 
 /// エントリポイント
-fn start(mut writer: EventWriter<WorldGenerateEvent>, options: Res<SateryteOptions>) {
-    let event = WorldGenerateEvent {
-        world_size: options.size - Size::new(0, 1),
-        world_name: "test".to_string(),
+fn start(mut writer: EventWriter<FloorGenerateEvent>, options: Res<SateryteOptions>) {
+    let event = FloorGenerateEvent {
+        map_size: options.size - Size::new(0, 1),
+        dungeon_name: "test".to_string(),
         floor: 1,
     };
     writer.send(event);

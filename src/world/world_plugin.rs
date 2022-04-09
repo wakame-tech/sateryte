@@ -6,8 +6,10 @@ use crate::{
 };
 
 use super::{
-    components::event::{ItemSpawnEvent, WorldGenerateEvent},
-    systems::{render_floor::render_tiles, spawn_floor::spawn_floor, spawn_items::spawn_items},
+    components::event::{FloorGenerateEvent, FloorGeneratedEvent, ItemSpawnEvent},
+    systems::{
+        render_floor::profile_tile_count, spawn_floor::spawn_floor, spawn_items::spawn_items,
+    },
 };
 
 /// ワールドの生成に関するプラグイン
@@ -15,9 +17,10 @@ pub struct FloorGeneratorPlugin;
 
 impl Plugin for FloorGeneratorPlugin {
     fn build(&self, app: &mut App) {
-        app.add_event::<WorldGenerateEvent>()
+        app.add_event::<FloorGenerateEvent>()
+            .add_event::<FloorGeneratedEvent>()
             .add_system(spawn_floor.label("spawn_floor"))
-            .add_system(render_tiles.after("spawn_floor"));
+            .add_system(profile_tile_count);
     }
 }
 

@@ -4,7 +4,7 @@ use crate::geo::{direction::Direction, point::Point, rect::Rect};
 
 /// A region of the map.
 /// at most 1 room in a region
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Region {
     pub area: Rect,
     pub room: Option<Rect>,

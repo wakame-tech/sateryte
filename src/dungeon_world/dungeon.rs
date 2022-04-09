@@ -7,56 +7,71 @@ use crate::{
 
 use super::region::Region;
 
-#[derive(Component, Debug)]
+#[derive(Component, Debug, Clone)]
 pub struct Dungeon {
+    /// 地形タイル
     pub tiles: Vec<Vec<Tile>>,
+    /// 部屋情報
     pub areas: Vec<Region>,
 }
 
 impl Dungeon {
-    pub fn at(&self, pos: &Point) -> Option<&Tile> {
-        if pos.x < 0
-            || pos.y < 0
-            || pos.x >= self.tiles[0].len() as i32
-            || pos.y >= self.tiles.len() as i32
-        {
-            return None;
-        }
-        Some(&self.tiles[pos.y as usize][pos.x as usize])
-    }
-
     pub fn is_movable(&self, pos: &Point) -> bool {
-        self.at(pos).map(|tile| tile.is_through()).unwrap_or(false)
-    }
-
-    /// 周囲4方向に [tile] が存在するか
-    fn exist_around(&self, pos: &Point, predicate: fn(&Tile) -> bool) -> bool {
-        pos.around4()
-            .iter()
-            .any(|p| self.at(p).map_or(false, predicate))
+        self.tiles[*pos].is_through()
     }
 
     /// 移動可能であれば, 移動先の座標を返す
     pub fn get_next_pos(&self, pos: Point, dir: &Direction) -> Option<Point> {
-        let next_pos = pos + dir.clone().into();
+        let next_pos = pos + Point::from_dir(dir);
         if self.is_movable(&next_pos) {
             return Some(next_pos);
         }
         None
     }
 
+    /// 壁に当たるまでの道を返す
+    pub fn points_iter(&self, pos: Point, dir: &Direction) -> impl Iterator<Item = Point> {
+        let mut pos = pos;
+        let mut res: Vec<Point> = vec![];
+        loop {
+            if let Some(next_pos) = self.get_next_pos(pos, dir) {
+                res.push(next_pos);
+                pos = next_pos;
+            } else {
+                break;
+            }
+        }
+        res.into_iter()
+    }
+
     /// ダッシュを終了するかの判定
     pub fn cancel_dash(&self, pos: &Point, dir: &Direction) -> bool {
-        let on_passage = self.at(pos) == Some(&Tile::Passage);
-        // stops on entrance of room
-        if on_passage && self.at(pos) != Some(&Tile::Passage) {
-            return true;
+        if self.tiles[*pos] == Tile::Passage {
+            // 部屋の入口か
+            if self.tiles[*pos] != Tile::Passage {
+                return true;
+            }
+            // 左右に分岐があるか
+            let sides = dir
+                .sides()
+                .iter()
+                .map(|d| pos.clone() + Point::from_dir(d))
+                .collect::<Vec<_>>();
+            if sides.iter().any(|p| self.tiles[*p] == Tile::Passage) {
+                return true;
+            }
+        } else {
+            // 周囲に通路があるか
+            if pos
+                .around4()
+                .iter()
+                .any(|p| self.tiles[*p] == Tile::Passage)
+            {
+                return true;
+            }
         }
-        // stops around passage
-        if !on_passage && self.exist_around(pos, |tile| tile == &Tile::Passage) {
-            return true;
-        }
-        let next = pos.clone() + dir.clone().into();
+        // それ以外のときは壁までダッシュ
+        let next = pos.clone() + Point::from_dir(dir);
         !self.is_movable(&next)
     }
 }

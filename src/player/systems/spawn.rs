@@ -3,23 +3,25 @@ use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 use rand::prelude::IteratorRandom;
 
 use crate::{
-    dungeon_world::dungeon::Dungeon, geo::direction::Direction,
-    player::components::entity_bundle::PlayerBundle,
+    geo::direction::Direction, player::components::entity_bundle::PlayerBundle,
+    world::components::event::FloorGeneratedEvent,
 };
 
 /// フロアを生成後, プレイヤーをスポーンさせる
 pub fn world_spawn_player(
     mut commands: Commands,
-    dungeon_query: Query<&Dungeon, Changed<Dungeon>>,
+    mut floor_generated: EventReader<FloorGeneratedEvent>,
     mut sprites: ResMut<Assets<Sprite>>,
-    mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
+    mut stylemaps: ResMut<Assets<StyleMap>>,
 ) {
-    for dungeon in dungeon_query.iter() {
+    for event in floor_generated.iter() {
+        log::debug!("floor generated");
         let player = sprites.add(Sprite::new("@"));
         let color = stylemaps.add(StyleMap::default());
 
         let mut rng = rand::thread_rng();
-        let spawn_pos = dungeon
+        let spawn_pos = event
+            .dungeon
             .areas
             .iter()
             .filter(|a| a.room.is_some())

@@ -4,25 +4,31 @@ use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, Style, S
 use crate::{
     dungeon_world::dungeon::Dungeon,
     message::components::logger::LogEvent,
-    world::components::{event::ItemSpawnEvent, map_item::MapItem},
+    world::components::{
+        event::{FloorGeneratedEvent, ItemSpawnEvent},
+        map_item::MapItem,
+    },
 };
 
 pub fn spawn_items(
-    dungeon_query: Query<&Dungeon, Added<Dungeon>>,
+    mut reader: EventReader<FloorGeneratedEvent>,
+    dungeon: Option<Res<Dungeon>>,
     mut writer: EventWriter<ItemSpawnEvent>,
 ) {
-    for dungeon in dungeon_query.iter() {
-        println!("spawn_items");
-        let mut rng = rand::thread_rng();
-        for region in &dungeon.areas {
-            // spawn items
-            for _ in 0..3 {
-                if let Some(pos) = region.random_floor(&mut rng) {
-                    let event = ItemSpawnEvent {
-                        pos,
-                        item: MapItem::Potion,
-                    };
-                    writer.send(event);
+    for _ in reader.iter() {
+        if let Some(ref dungeon) = dungeon {
+            println!("spawn_items");
+            let mut rng = rand::thread_rng();
+            for region in &dungeon.areas {
+                // spawn items
+                for _ in 0..3 {
+                    if let Some(pos) = region.random_floor(&mut rng) {
+                        let event = ItemSpawnEvent {
+                            pos,
+                            item: MapItem::Potion,
+                        };
+                        writer.send(event);
+                    }
                 }
             }
         }

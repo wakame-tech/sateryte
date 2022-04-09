@@ -1,7 +1,5 @@
 use bevy::prelude::*;
 
-use super::point::Point;
-
 #[derive(Debug, Component, Clone, PartialEq, Eq)]
 pub enum Direction {
     Up,
@@ -15,6 +13,7 @@ pub enum Direction {
 }
 
 impl Direction {
+    /// 逆向き
     pub fn invert(&self) -> Direction {
         match self {
             Direction::Up => Direction::Down,
@@ -28,6 +27,16 @@ impl Direction {
         }
     }
 
+    /// 横向き
+    pub fn sides(&self) -> Vec<Direction> {
+        match self {
+            Direction::Up | Direction::Down => vec![Direction::Left, Direction::Right],
+            Direction::Left | Direction::Right => vec![Direction::Up, Direction::Down],
+            _ => vec![],
+        }
+    }
+
+    /// 周囲4方向
     pub fn around_4() -> Vec<Direction> {
         vec![
             Direction::Up,
@@ -37,6 +46,7 @@ impl Direction {
         ]
     }
 
+    /// 周囲8方向
     pub fn around_8() -> Vec<Direction> {
         vec![
             Direction::Up,
@@ -48,20 +58,5 @@ impl Direction {
             Direction::DownLeft,
             Direction::DownRight,
         ]
-    }
-}
-
-impl Into<Point> for Direction {
-    fn into(self) -> Point {
-        match self {
-            Direction::Up => Point::new(0, -1),
-            Direction::Down => Point::new(0, 1),
-            Direction::Left => Point::new(-1, 0),
-            Direction::Right => Point::new(1, 0),
-            Direction::UpLeft => Point::new(-1, -1),
-            Direction::UpRight => Point::new(1, -1),
-            Direction::DownLeft => Point::new(-1, 1),
-            Direction::DownRight => Point::new(1, 1),
-        }
     }
 }
