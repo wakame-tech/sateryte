@@ -16,3 +16,6 @@ bevy_crossterm = { git = "https://github.com/wakame-tech/bevy_crossterm", branch
 terminal_size = "0.1.17"
 itertools = "0.10.3"
 crossterm = "0.23.0"
+log = "0.4.16"
+fern = "0.6.0"
+chrono = "0.4.19"

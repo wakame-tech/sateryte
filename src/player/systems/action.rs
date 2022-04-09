@@ -5,7 +5,7 @@ use crate::{
     dungeon_world::dungeon::Dungeon,
     enemy::components::EnemyMovedEvent,
     geo::{direction::Direction, point::Point},
-    message::logger::LogEvent,
+    message::components::logger::LogEvent,
     player::components::{
         action::Action,
         entity_bundle::{Flags, IsPlayer},

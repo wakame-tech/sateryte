@@ -3,7 +3,7 @@ use bevy_crossterm::components::Position;
 
 use crate::{
     geo::direction::Direction,
-    message::status_bar::StatusBarUpdateEvent,
+    message::components::status_bar::StatusBarUpdateEvent,
     player::components::{
         entity_bundle::IsPlayer,
         status::{Exp, Hp},

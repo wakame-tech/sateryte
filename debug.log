@@ -1,247 +1,222 @@
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: true }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
-[info] Flags { is_dash: false }
+[2022-04-09 13:32:30][DEBUG] logger initialized
+[2022-04-09 13:34:02][DEBUG] logger initialized
+[2022-04-09 13:34:07][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:07][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:07][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:07][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:08][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:08][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:09][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:10][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:10][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:10][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:10][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:11][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:11][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:11][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:11][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:12][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:12][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:13][INFO] [info] Flags { is_dash: false }
+[2022-04-09 13:34:44][DEBUG] logger initialized
+[2022-04-09 13:34:50][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:50][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:50][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:50][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:51][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:51][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:51][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:51][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:51][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:52][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:52][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:52][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:52][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:53][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:53][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:53][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:53][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:53][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:54][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:54][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:54][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:55][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:55][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:55][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:55][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:55][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:56][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:57][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:58][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:58][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:58][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:58][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:58][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:59][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:59][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:59][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:34:59][DEBUG] [info] Flags { is_dash: false }
+[2022-04-09 13:48:46][DEBUG] logger initialized
+[2022-04-09 13:48:48][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:48][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:48][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:48][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:48][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:49][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:50][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:51][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:52][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:53][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:54][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:55][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: false }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: true }
+[2022-04-09 13:48:56][INFO] [game logger] [info] Flags { is_dash: false }

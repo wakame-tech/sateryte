@@ -1,38 +1,8 @@
-use std::{fs::OpenOptions, io::Write};
-
 use bevy::prelude::*;
-use bevy_crossterm::components::{Color, Colors, Position, Sprite, SpriteBundle, StyleMap};
+use bevy_crossterm::components::{Sprite, StyleMap};
+use log;
 
-#[derive(Component, Default)]
-pub struct Logger {
-    pub messages: Vec<LogEvent>,
-}
-
-#[derive(Component, Clone)]
-pub struct LogEvent {
-    pub text: String,
-}
-
-impl LogEvent {
-    pub fn info(text: &str) -> Self {
-        Self {
-            text: format!("[info] {}", text),
-        }
-    }
-}
-
-// デバッグ用
-pub fn dump_log(message: String) {
-    let file = OpenOptions::new()
-        .write(true)
-        .create(true)
-        .append(true)
-        .open("debug.log")
-        .unwrap();
-
-    let mut writer = std::io::BufWriter::new(file);
-    writer.write(format!("{}\n", message).as_bytes()).unwrap();
-}
+use crate::message::components::logger::{LogEvent, Logger};
 
 pub fn logger_listener(
     mut commands: Commands,
@@ -45,7 +15,7 @@ pub fn logger_listener(
         logger.messages.push(LogEvent {
             text: message.text.clone(),
         });
-        dump_log(message.text.clone());
+        log::info!("[game logger] {}", message.text);
 
         // let color = stylemaps.add(StyleMap::with_colors(Colors::new(
         //     Color::Black,

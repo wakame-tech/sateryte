@@ -1,16 +1,16 @@
-use core::time;
-
-use bevy::{app::ScheduleRunnerSettings, prelude::*};
+use bevy::{app::ScheduleRunnerSettings, log::LogPlugin, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
+use core::time;
+use log;
 use sateryte::{
     config::SateryteOptions,
     geo::size::Size,
     input::input_plugin::KeyBoardInputPlugin,
     message::MessagePlugins,
-    player::player_plugin::PlayerPlugins,
     world::{components::event::WorldGenerateEvent, world_plugin::WorldPlugin},
 };
 
+/// エントリポイント
 fn start(mut writer: EventWriter<WorldGenerateEvent>) {
     let event = WorldGenerateEvent {
         world_size: Size::new(80, 25),
@@ -20,8 +20,27 @@ fn start(mut writer: EventWriter<WorldGenerateEvent>) {
     writer.send(event);
 }
 
+fn init_logger() -> Result<(), anyhow::Error> {
+    let file_config = fern::Dispatch::new()
+        .level(log::LevelFilter::Debug)
+        .format(|out, message, record| {
+            out.finish(format_args!(
+                "{}[{}] {}",
+                chrono::Local::now().format("[%Y-%m-%d %H:%M:%S]"),
+                record.level(),
+                message
+            ));
+        })
+        .chain(fern::log_file("debug.log").unwrap());
+
+    file_config.apply().map_err(|e| anyhow::anyhow!("{}", e))
+}
+
 fn main() -> Result<(), anyhow::Error> {
     let mut settings = CrosstermWindowSettings::default();
+    init_logger()?;
+    log::debug!("logger initialized");
+
     settings.set_title("satellite-rs");
 
     App::new()
@@ -31,7 +50,9 @@ fn main() -> Result<(), anyhow::Error> {
         .insert_resource(ScheduleRunnerSettings::run_loop(
             time::Duration::from_millis(16),
         ))
-        .add_plugins(DefaultCrosstermPlugins)
+        .add_plugins_with(DefaultCrosstermPlugins, |group| {
+            group.disable::<LogPlugin>()
+        })
         .add_plugin(KeyBoardInputPlugin)
         .add_plugins(MessagePlugins)
         .add_plugin(WorldPlugin)

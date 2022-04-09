@@ -6,7 +6,7 @@ use crate::{
         dungeon::Dungeon,
         generator::{DungeonGenerator, Generator},
     },
-    message::status_bar::StatusBarUpdateEvent,
+    message::components::status_bar::StatusBarUpdateEvent,
     world::components::{event::WorldGenerateEvent, map::Map, tile::tile_style},
 };
 

@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use crate::{
     dungeon_world::dungeon::Dungeon,
     enemy::components::{Enemy, EnemyMovedEvent},
-    message::logger::LogEvent,
+    message::components::logger::LogEvent,
     player::components::event::PlayerMovedEvent,
 };
 use bevy_crossterm::components::Position;

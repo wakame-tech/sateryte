@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::{
     dungeon_world::dungeon::Dungeon, enemy::components::EnemyMovedEvent,
-    message::status_bar::StatusBarUpdateEvent,
+    message::components::status_bar::StatusBarUpdateEvent,
 };
 
 use super::components::turn::Turn;

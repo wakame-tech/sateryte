@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, Style, StyleMap};
 
 use crate::{
-    dungeon_world::dungeon::Dungeon, message::logger::LogEvent,
+    dungeon_world::dungeon::Dungeon, message::components::logger::LogEvent,
     world::components::event::ItemSpawnEvent,
 };
 
