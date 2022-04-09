@@ -2,7 +2,8 @@ use bevy::prelude::*;
 use bevy_crossterm::components::Position;
 
 use crate::{
-    enemy::EnemyMovedEvent,
+    dungeon_world::dungeon::Dungeon,
+    enemy::components::EnemyMovedEvent,
     geo::{direction::Direction, point::Point},
     message::logger::LogEvent,
     player::components::{
@@ -10,7 +11,6 @@ use crate::{
         entity_bundle::{Flags, IsPlayer},
         event::PlayerMovedEvent,
     },
-    world::dungeon_world::dungeon::Dungeon,
 };
 
 /// 入力を受け, プレイヤーの行動をする

@@ -1,8 +1,7 @@
 use std::{fs::OpenOptions, io::Write};
 
-use bevy::{asset::HandleId, prelude::*};
+use bevy::prelude::*;
 use bevy_crossterm::components::{Color, Colors, Position, Sprite, SpriteBundle, StyleMap};
-use terminal_size::{terminal_size, Height, Width};
 
 #[derive(Component, Default)]
 pub struct Logger {

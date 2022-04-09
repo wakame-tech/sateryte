@@ -1,21 +1,17 @@
 use bevy::prelude::*;
-use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 use rand::prelude::IteratorRandom;
 
-use crate::{
-    dungeon_world::dungeon::Dungeon, geo::direction::Direction,
-    player::components::entity_bundle::PlayerBundle,
-};
+use crate::{dungeon_world::dungeon::Dungeon, enemy::components::EnemyBundle};
+use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 
-/// フロアを生成後, プレイヤーをスポーンさせる
-pub fn world_spawn_player(
+pub fn world_spawn_enemy(
     mut commands: Commands,
-    dungeon_query: Query<&Dungeon, Changed<Dungeon>>,
+    dungeon_query: Query<&Dungeon, Added<Dungeon>>,
     mut sprites: ResMut<Assets<Sprite>>,
-    mut stylemaps: ResMut<Assets<bevy_crossterm::components::StyleMap>>,
+    mut stylemaps: ResMut<Assets<StyleMap>>,
 ) {
     for dungeon in dungeon_query.iter() {
-        let player = sprites.add(Sprite::new("@"));
+        let enemy = sprites.add(Sprite::new("A"));
         let color = stylemaps.add(StyleMap::default());
 
         let mut rng = rand::thread_rng();
@@ -29,13 +25,13 @@ pub fn world_spawn_player(
             .unwrap();
 
         let sprite = SpriteBundle {
-            sprite: player,
+            sprite: enemy,
             position: Position::with_xy(spawn_pos.x, spawn_pos.y),
             stylemap: color,
             ..Default::default()
         };
-        let player = PlayerBundle::new(sprite, spawn_pos, Direction::Down);
+        let enemy = EnemyBundle::new(sprite);
 
-        commands.spawn_bundle(player);
+        commands.spawn_bundle(enemy);
     }
 }

@@ -2,8 +2,8 @@ use bevy::prelude::*;
 use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, Style, StyleMap};
 
 use crate::{
-    message::logger::LogEvent,
-    world::{components::event::ItemSpawnEvent, dungeon_world::dungeon::Dungeon},
+    dungeon_world::dungeon::Dungeon, message::logger::LogEvent,
+    world::components::event::ItemSpawnEvent,
 };
 
 #[derive(Component, Debug, Clone)]

@@ -3,6 +3,7 @@ use core::time;
 use bevy::{app::ScheduleRunnerSettings, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
 use sateryte::{
+    config::SateryteOptions,
     geo::size::Size,
     input::input_plugin::KeyBoardInputPlugin,
     message::MessagePlugins,
@@ -24,6 +25,7 @@ fn main() -> Result<(), anyhow::Error> {
     settings.set_title("satellite-rs");
 
     App::new()
+        .insert_resource(SateryteOptions::default())
         .insert_resource(settings)
         .insert_resource(DefaultTaskPoolOptions::with_num_threads(1))
         .insert_resource(ScheduleRunnerSettings::run_loop(

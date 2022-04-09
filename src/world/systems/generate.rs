@@ -2,14 +2,12 @@ use bevy::prelude::*;
 use bevy_crossterm::components::{Position, Sprite, SpriteBundle, StyleMap};
 
 use crate::{
-    message::status_bar::StatusBarUpdateEvent,
-    world::{
-        components::{event::WorldGenerateEvent, map::Map, tile::tile_style},
-        dungeon_world::{
-            dungeon::Dungeon,
-            generator::{DungeonGenerator, Generator},
-        },
+    dungeon_world::{
+        dungeon::Dungeon,
+        generator::{DungeonGenerator, Generator},
     },
+    message::status_bar::StatusBarUpdateEvent,
+    world::components::{event::WorldGenerateEvent, map::Map, tile::tile_style},
 };
 
 /// フロアを生成する

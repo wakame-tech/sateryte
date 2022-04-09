@@ -40,6 +40,8 @@ impl Plugin for PlayerStatusBarPlugin {
 }
 
 /// プレイヤーに関するプラグイン群
+/// - [PlayerActionPlugin]
+/// - [PlayerStatusBarPlugin]
 pub struct PlayerPlugins;
 
 impl PluginGroup for PlayerPlugins {

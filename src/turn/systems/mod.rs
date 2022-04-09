@@ -1,10 +1,11 @@
 use bevy::prelude::*;
 
 use crate::{
-    enemy::EnemyMovedEvent,
+    dungeon_world::dungeon::Dungeon, enemy::components::EnemyMovedEvent,
     message::status_bar::StatusBarUpdateEvent,
-    world::{components::turn::Turn, dungeon_world::dungeon::Dungeon},
 };
+
+use super::components::turn::Turn;
 
 pub fn setup_turn(mut commands: Commands, query: Query<&Dungeon, Added<Dungeon>>) {
     for _ in query.iter() {

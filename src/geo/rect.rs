@@ -129,4 +129,24 @@ impl Rect {
             _ => panic!("invalid direction"),
         }
     }
+
+    pub fn tl(&self) -> Point {
+        self.pos
+    }
+
+    pub fn br(&self) -> Point {
+        self.pos + self.size.into()
+    }
+
+    pub fn tr(&self) -> Point {
+        self.pos + (self.size.w as i32, 0).into()
+    }
+
+    pub fn bl(&self) -> Point {
+        self.pos + (0, self.size.h as i32).into()
+    }
+
+    pub fn center(&self) -> Point {
+        self.pos + Size::new(self.size.w / 2, self.size.h / 2).into()
+    }
 }
