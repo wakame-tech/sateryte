@@ -49,7 +49,7 @@ fn add_player(mut commands: Commands) {
 }
 
 /// [Query] を使って [Component] を取得して処理を行う
-fn greet_player(players: Query<(&Name, &Status), With<Player>>) {
+fn greet_player(_players: Query<(&Name, &Status), With<Player>>) {
     // for (name, status) in players.iter() {
     //     dbg!(name, status);
     // }

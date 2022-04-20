@@ -11,7 +11,7 @@ pub fn enemy_move(
     dungeon: Option<Res<Dungeon>>,
 ) {
     for _ in player_moved.iter() {
-        if let Some(_) = dungeon {
+        if dungeon.is_some() {
             // for (enemy, mut position) in enemy_query.iter_mut() {
             //     let mut rng = rand::thread_rng();
             //     let new_pos = dungeon.get_next_pos(

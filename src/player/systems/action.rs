@@ -86,14 +86,12 @@ pub fn auto_dash(
 
             if cancel_dash {
                 flags.is_dash = !cancel_dash;
-            } else {
-                if let Some(new_pos) = dungeon.get_next_pos(*point, &dir) {
-                    *point = new_pos;
-                }
+            } else if let Some(new_pos) = dungeon.get_next_pos(*point, &dir) {
+                *point = new_pos;
             }
             player_moved.send(PlayerActedEvent {
                 action: Action::Dash(dir.clone()),
-                pos: point.clone(),
+                pos: *point,
             });
         }
     }
