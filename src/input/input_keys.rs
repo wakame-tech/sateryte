@@ -1,5 +1,6 @@
 use crate::{geo::direction::Direction, player::components::action::Action};
-use bevy::{app::Events, prelude::*};
+use bevy::ecs::event::Events;
+use bevy::prelude::*;
 use bevy_crossterm::prelude::{KeyCode, KeyEvent};
 use crossterm::event::KeyModifiers;
 

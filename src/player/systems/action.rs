@@ -35,7 +35,7 @@ pub fn act_player(
 
             match action {
                 Action::Step => {}
-                Action::Turn(d) => {}
+                Action::Turn(_) => {}
                 Action::Walk(d) => {
                     if let Some(new_pos) = dungeon.get_next_pos(*point, d) {
                         *dir = d.clone();

@@ -1,17 +1,9 @@
 use bevy::prelude::*;
-use bevy_crossterm::components::{Color, Position, Sprite, SpriteBundle, StyleMap};
 use log;
 
-use crate::message::components::logger::{LogEvent, Logger, LoggerOptions};
+use crate::message::components::logger::{LogEvent, Logger};
 
-pub fn logger_listener(
-    mut commands: Commands,
-    mut logger: ResMut<Logger>,
-    mut reader: EventReader<LogEvent>,
-    mut sprites: ResMut<Assets<Sprite>>,
-    mut stylemaps: ResMut<Assets<StyleMap>>,
-    logger_options: Res<LoggerOptions>,
-) {
+pub fn logger_listener(mut logger: ResMut<Logger>, mut reader: EventReader<LogEvent>) {
     for message in reader.iter() {
         logger.messages.push(LogEvent {
             text: message.text.clone(),

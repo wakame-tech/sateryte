@@ -1,8 +1,9 @@
 use std::time;
 
 use bevy::{
-    app::{Events, ScheduleRunnerSettings},
+    app::ScheduleRunnerSettings,
     core::DefaultTaskPoolOptions,
+    ecs::event::Events,
     prelude::{App, Assets, Commands, Component, EventReader, EventWriter, Query, Res, ResMut},
 };
 use bevy_crossterm::{
