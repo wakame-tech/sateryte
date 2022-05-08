@@ -3,25 +3,24 @@ use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
 use core::time;
 
 use sateryte::{
-    config::SateryteOptions,
-    geo::size::Size,
+    config::SateryteConfig,
+    geo::rect::Rect,
     input::input_plugin::KeyBoardInputPlugin,
     message::MessagePlugins,
     world::{components::event::FloorGenerateEvent, world_plugin::WorldPlugin},
 };
-use terminal_size::{terminal_size, Height, Width};
 
 /// エントリポイント
-fn start(mut writer: EventWriter<FloorGenerateEvent>, options: Res<SateryteOptions>) {
+fn start(mut writer: EventWriter<FloorGenerateEvent>, options: Res<SateryteConfig>) {
     let event = FloorGenerateEvent {
-        map_size: options.size - Size::new(0, 1),
+        map_size: Rect::from_tuple(options.floor.unwrap()).size,
         dungeon_name: "test".to_string(),
         floor: 1,
     };
     writer.send(event);
 }
 
-fn init_logger() -> Result<(), anyhow::Error> {
+fn init_logger(log_file: &str) -> Result<(), anyhow::Error> {
     let file_config = fern::Dispatch::new()
         .level(log::LevelFilter::Debug)
         .format(|out, message, record| {
@@ -32,27 +31,25 @@ fn init_logger() -> Result<(), anyhow::Error> {
                 message
             ));
         })
-        .chain(fern::log_file("debug.log").unwrap());
+        .chain(fern::log_file(log_file).unwrap());
 
     file_config.apply().map_err(|e| anyhow::anyhow!("{}", e))
 }
 
 fn main() -> Result<(), anyhow::Error> {
     // init logger
-    init_logger()?;
-    log::debug!("logger initialized");
+    init_logger("debug.log")?;
+    debug!("logger initialized");
 
-    // set screen size
-    let (Width(w), Height(h)) = terminal_size().unwrap();
-    let screen_size = Size::new(w as usize, h as usize);
-    let sateryte_options = SateryteOptions::new(screen_size - Size::new(0, 1));
+    let config = SateryteConfig::from_file("config.ron")?;
+    debug!("config: {:?}", config);
 
     // set title
     let mut settings = CrosstermWindowSettings::default();
     settings.set_title("satellite-rs");
 
     App::new()
-        .insert_resource(sateryte_options)
+        .insert_resource(config)
         .insert_resource(settings)
         .insert_resource(DefaultTaskPoolOptions::with_num_threads(1))
         .insert_resource(ScheduleRunnerSettings::run_loop(

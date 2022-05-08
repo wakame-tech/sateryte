@@ -3,7 +3,7 @@ use std::{
     ops::{Add, AddAssign, Sub, SubAssign},
 };
 
-use super::point::Point;
+use super::{point::Point, rect::Rect};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Size {
@@ -20,6 +20,10 @@ impl Display for Size {
 impl Size {
     pub fn new(w: usize, h: usize) -> Self {
         Self { w, h }
+    }
+
+    pub fn at(self, x: i32, y: i32) -> Rect {
+        Rect::new(x, y, self.w, self.h)
     }
 }
 
