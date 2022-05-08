@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Flags","フラグ"],["IsPlayer","プレイヤータグ"],["PlayerBundle","プレイヤー"]]});

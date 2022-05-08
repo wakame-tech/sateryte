@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DungeonGenerator",""]],"trait":[["Generator",""]]});

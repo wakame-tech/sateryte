@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["KeyBoardInputPlugin","キーボード入力"]]});

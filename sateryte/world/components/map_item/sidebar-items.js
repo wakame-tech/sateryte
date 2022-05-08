@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MapItem","マップに落ちているアイテム"]],"struct":[["ItemBundle",""]]});

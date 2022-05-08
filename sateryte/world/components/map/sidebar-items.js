@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Floor","画面に唯一存在するマップ"]]});

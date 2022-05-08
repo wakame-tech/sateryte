@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TurnPlugin","ターン制に関するプラグイン"]]});

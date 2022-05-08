@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PlayerActionPlugin","プレイヤーの行動に関するプラグイン"],["PlayerPlugins","プレイヤーに関するプラグイン群"],["PlayerStatusBarPlugin","プレイヤーの情報をステータスバーに表示するためのプラグイン"]]});

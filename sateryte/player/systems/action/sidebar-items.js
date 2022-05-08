@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["act_player","入力を受け, プレイヤーの行動をする"],["auto_dash","ダッシュ中の時は自動で次の行動を決定する"],["render_player","[Player] 座標を画面上の座標に反映させる"]]});

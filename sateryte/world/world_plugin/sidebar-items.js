@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FloorGeneratorPlugin","ワールドの生成に関するプラグイン"],["FloorItemSpawnPlugin","アイテムのスポーンに関するプラグイン"],["WorldGeneratorPlugins","マップの生成にかかわるプラグイン群"],["WorldPlugin","フロアに関わるプラグイン"]]});

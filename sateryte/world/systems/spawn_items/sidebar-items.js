@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["item_char",""],["item_style",""],["render_item","アイテムを描画する"],["spawn_items",""]]});

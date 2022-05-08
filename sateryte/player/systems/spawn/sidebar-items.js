@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["world_spawn_player","フロアを生成後, プレイヤーをスポーンさせる"]]});

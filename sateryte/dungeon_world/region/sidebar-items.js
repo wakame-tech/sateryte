@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Region","A region of the map. at most 1 room in a region"]]});
