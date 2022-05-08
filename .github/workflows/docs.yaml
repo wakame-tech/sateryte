@@ -17,9 +17,9 @@ jobs:
     # https://github.com/bevyengine/bevy/issues/850#issuecomment-758341779
     - run: |
         sudo apt install -y pulseaudio
-        adduser $(id -u -n) pulse-access
-        rm -rf /var/run/pulse /var/lib/pulse /root/.config/pulse
-        pulseaudio -D --verbose --exit-idle-time=-1 --system --disallow-exit
+        sudo adduser $(id -u -n) pulse-access
+        sudo rm -rf /var/run/pulse /var/lib/pulse /root/.config/pulse
+        sudo pulseaudio -D --verbose --exit-idle-time=-1 --system --disallow-exit
     - name: Run tests
       run: cargo test --verbose
 
