@@ -60,7 +60,7 @@ pub fn render_item(
         let style = item_style(&event.item);
         let sprite = sprites.add(Sprite::new(char));
         let stylemap = stylemaps.add(StyleMap::new(style, vec![]));
-        let pos = event.pos.clone();
+        let pos = event.pos;
         commands.spawn_bundle(SpriteBundle {
             sprite,
             position: Position::new(pos.x, pos.y, 1),

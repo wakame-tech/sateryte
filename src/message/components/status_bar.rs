@@ -20,7 +20,7 @@ pub struct StatusBarOptions {
 
 impl StatusBarOptions {
     pub fn new(area: Rect) -> Self {
-        log::debug!("stautbar {}", area);
+        log::debug!("status bar area: {}", area);
         Self { area }
     }
 }

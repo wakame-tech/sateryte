@@ -55,7 +55,7 @@ impl Dungeon {
             let sides = dir
                 .sides()
                 .iter()
-                .map(|d| pos.clone() + Point::from_dir(d))
+                .map(|d| *pos + Point::from_dir(d))
                 .collect::<Vec<_>>();
             if sides.iter().any(|p| self.tiles[*p] == Tile::Passage) {
                 return true;
@@ -71,7 +71,7 @@ impl Dungeon {
             }
         }
         // それ以外のときは壁までダッシュ
-        let next = pos.clone() + Point::from_dir(dir);
+        let next = *pos + Point::from_dir(dir);
         !self.is_movable(&next)
     }
 }

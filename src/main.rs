@@ -1,7 +1,7 @@
 use bevy::{app::ScheduleRunnerSettings, log::LogPlugin, prelude::*};
 use bevy_crossterm::{CrosstermWindowSettings, DefaultCrosstermPlugins};
 use core::time;
-use log;
+
 use sateryte::{
     config::SateryteConfig,
     geo::rect::Rect,

@@ -3,7 +3,8 @@ use crate::{
     geo::direction::Direction,
     player::components::action::Action,
 };
-use bevy::{app::Events, prelude::*};
+use bevy::ecs::event::Events;
+use bevy::prelude::*;
 use bevy_crossterm::prelude::KeyEvent;
 
 /// convert input key to action

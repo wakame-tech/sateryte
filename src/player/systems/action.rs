@@ -35,7 +35,7 @@ pub fn act_player(
 
             match action {
                 Action::Step => {}
-                Action::Turn(d) => {}
+                Action::Turn(_) => {}
                 Action::Walk(d) => {
                     if let Some(new_pos) = dungeon.get_next_pos(*point, d) {
                         *dir = d.clone();
@@ -86,14 +86,12 @@ pub fn auto_dash(
 
             if cancel_dash {
                 flags.is_dash = !cancel_dash;
-            } else {
-                if let Some(new_pos) = dungeon.get_next_pos(*point, &dir) {
-                    *point = new_pos;
-                }
+            } else if let Some(new_pos) = dungeon.get_next_pos(*point, &dir) {
+                *point = new_pos;
             }
             player_moved.send(PlayerActedEvent {
                 action: Action::Dash(dir.clone()),
-                pos: point.clone(),
+                pos: *point,
             });
         }
     }

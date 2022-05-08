@@ -14,7 +14,7 @@ impl Region {
     pub fn new(area: Rect) -> Region {
         Region {
             area: area.clone(),
-            room: Some(area.shrink(2, 2).unwrap().clone()),
+            room: Some(area.shrink(2, 2).unwrap()),
         }
     }
 
