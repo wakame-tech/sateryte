@@ -1,6 +1,5 @@
 use crate::geo::rect::Rect;
 use bevy::prelude::*;
-use log;
 
 #[derive(Component, Default)]
 pub struct Logger {
@@ -13,10 +12,8 @@ pub struct LoggerOptions {
     pub area: Rect,
 }
 
-impl Default for LoggerOptions {
-    fn default() -> Self {
-        let area = Rect::new(80, 0, 20, 60);
-        log::debug!("logger {}", area);
+impl LoggerOptions {
+    pub fn new(area: Rect) -> Self {
         Self { area }
     }
 }

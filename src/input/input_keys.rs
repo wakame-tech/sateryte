@@ -1,90 +1,123 @@
-use crate::{geo::direction::Direction, player::components::action::Action};
+use crate::{
+    config::{keybinding::parser::parse_key_binding, SateryteConfig},
+    geo::direction::Direction,
+    player::components::action::Action,
+};
 use bevy::{app::Events, prelude::*};
-use bevy_crossterm::prelude::{KeyCode, KeyEvent};
-use crossterm::event::KeyModifiers;
-
-fn parse_key_binding(binding: &str) -> KeyEvent {
-    let with_shift = binding.starts_with("S-");
-    let with_ctrl = binding.starts_with("C-");
-    let rest = binding.trim_start_matches("S-").trim_start_matches("C-");
-    let code = match rest {
-        "<space>" => KeyCode::Char(' '),
-        "<up>" => KeyCode::Up,
-        "<down>" => KeyCode::Down,
-        "<left>" => KeyCode::Left,
-        "<right>" => KeyCode::Right,
-        _ => KeyCode::Char(rest.chars().next().unwrap()),
-    };
-    let modifiers = if with_shift {
-        KeyModifiers::SHIFT
-    } else if with_ctrl {
-        KeyModifiers::CONTROL
-    } else {
-        KeyModifiers::NONE
-    };
-    KeyEvent::new(code, modifiers)
-}
+use bevy_crossterm::prelude::KeyEvent;
 
 /// convert input key to action
-pub fn input_keys(keys: Res<Events<KeyEvent>>, mut sender: EventWriter<Action>) {
+pub fn input_keys(
+    keys: Res<Events<KeyEvent>>,
+    mut sender: EventWriter<Action>,
+    config: Res<SateryteConfig>,
+) {
     for event in keys.get_reader().iter(&*keys) {
-        // q w e
-        // a _ d
-        // z s v
-        //
-        // dash: S-
-        // turn: C-
-        let key_bindings: Vec<(Action, Vec<&str>)> = vec![
+        let key_bindings: Vec<(Action, &[String])> = vec![
             // 足踏み
-            (Action::Step, vec!["<space>"]),
+            (Action::Step, &*config.key_binding.step),
             // 右方向転換
-            (Action::Turn(Direction::Right), vec!["C-d"]),
+            (
+                Action::Turn(Direction::Right),
+                &*config.key_binding.turn_right,
+            ),
             // 左方向転換
-            (Action::Turn(Direction::Left), vec!["C-a"]),
+            (
+                Action::Turn(Direction::Left),
+                &*config.key_binding.turn_left,
+            ),
             // 上方向転換
-            (Action::Turn(Direction::Up), vec!["C-w"]),
+            (Action::Turn(Direction::Up), &*config.key_binding.turn_up),
             // 下方向転換
-            (Action::Turn(Direction::Down), vec!["C-s"]),
+            (
+                Action::Turn(Direction::Down),
+                &*config.key_binding.turn_down,
+            ),
             // 右上方向転換
-            (Action::Turn(Direction::UpRight), vec!["C-e"]),
+            (
+                Action::Turn(Direction::UpRight),
+                &*config.key_binding.turn_up_right,
+            ),
             // 右下方向転換
-            (Action::Turn(Direction::DownRight), vec!["C-v"]),
+            (
+                Action::Turn(Direction::DownRight),
+                &*config.key_binding.turn_down_right,
+            ),
             // 左上方向転換
-            (Action::Turn(Direction::UpLeft), vec!["C-q"]),
+            (
+                Action::Turn(Direction::UpLeft),
+                &*config.key_binding.turn_up_left,
+            ),
             // 左下方向転換
-            (Action::Turn(Direction::DownLeft), vec!["C-z"]),
+            (
+                Action::Turn(Direction::DownLeft),
+                &*config.key_binding.turn_down_left,
+            ),
             // 右
-            (Action::Walk(Direction::Right), vec!["d"]),
+            (Action::Walk(Direction::Right), &*config.key_binding.right),
             // 左
-            (Action::Walk(Direction::Left), vec!["a"]),
+            (Action::Walk(Direction::Left), &*config.key_binding.left),
             // 上
-            (Action::Walk(Direction::Up), vec!["w"]),
+            (Action::Walk(Direction::Up), &*config.key_binding.up),
             // 下
-            (Action::Walk(Direction::Down), vec!["s"]),
+            (Action::Walk(Direction::Down), &*config.key_binding.down),
             // 右上
-            (Action::Walk(Direction::UpRight), vec!["e"]),
+            (
+                Action::Walk(Direction::UpRight),
+                &*config.key_binding.up_right,
+            ),
             // 左上
-            (Action::Walk(Direction::UpLeft), vec!["q"]),
+            (
+                Action::Walk(Direction::UpLeft),
+                &*config.key_binding.up_left,
+            ),
             // 右下
-            (Action::Walk(Direction::DownRight), vec!["v"]),
+            (
+                Action::Walk(Direction::DownRight),
+                &*config.key_binding.down_right,
+            ),
             // 左下
-            (Action::Walk(Direction::DownLeft), vec!["z"]),
+            (
+                Action::Walk(Direction::DownLeft),
+                &*config.key_binding.down_left,
+            ),
             // 右ダッシュ
-            (Action::Dash(Direction::Right), vec!["S-d"]),
+            (
+                Action::Dash(Direction::Right),
+                &*config.key_binding.dash_right,
+            ),
             // 左ダッシュ
-            (Action::Dash(Direction::Left), vec!["S-a"]),
+            (
+                Action::Dash(Direction::Left),
+                &*config.key_binding.dash_left,
+            ),
             // 上ダッシュ
-            (Action::Dash(Direction::Up), vec!["S-w"]),
+            (Action::Dash(Direction::Up), &*config.key_binding.dash_up),
             // 下ダッシュ
-            (Action::Dash(Direction::Down), vec!["S-s"]),
+            (
+                Action::Dash(Direction::Down),
+                &*config.key_binding.dash_down,
+            ),
             // 右上ダッシュ
-            (Action::Dash(Direction::UpRight), vec!["S-e"]),
+            (
+                Action::Dash(Direction::UpRight),
+                &*config.key_binding.dash_up_right,
+            ),
             // 左上ダッシュ
-            (Action::Dash(Direction::UpLeft), vec!["S-q"]),
+            (
+                Action::Dash(Direction::UpLeft),
+                &*config.key_binding.dash_up_left,
+            ),
             // 右下ダッシュ
-            (Action::Dash(Direction::DownRight), vec!["S-v"]),
+            (
+                Action::Dash(Direction::DownRight),
+                &*config.key_binding.dash_down_right,
+            ),
             // 左下ダッシュ
-            (Action::Dash(Direction::DownLeft), vec!["S-z"]),
+            (
+                Action::Dash(Direction::DownLeft),
+                &*config.key_binding.dash_down_left,
+            ),
         ];
 
         for (action, bindings) in key_bindings.iter() {

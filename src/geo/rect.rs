@@ -24,6 +24,17 @@ impl Rect {
         }
     }
 
+    pub fn from_tuple(tup: (i32, i32, usize, usize)) -> Self {
+        Self {
+            pos: Point::new(tup.0, tup.1),
+            size: Size::new(tup.2, tup.3),
+        }
+    }
+
+    pub fn as_tuple(&self) -> (i32, i32, usize, usize) {
+        (self.pos.x, self.pos.y, self.size.w, self.size.h)
+    }
+
     pub fn is_edge(&self, pos: Point) -> bool {
         self.is_horizontal_edge(pos) || self.is_vertical_edge(pos)
     }
