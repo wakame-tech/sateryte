@@ -14,6 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    # https://qiita.com/ktetsuo/items/4fd3fc07a9882865e025
+    - run: |
+        sudo apt install -y libasound2-dev libudev-dev
     - name: Run tests
       run: cargo test --verbose
 
